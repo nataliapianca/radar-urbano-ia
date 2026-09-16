@@ -1,0 +1,76 @@
+# Como rodar o backend — Radar Urbano IA
+
+Esse guia explica o que já foi montado no `backend/` e como qualquer pessoa do grupo consegue rodar o projeto na própria máquina.
+
+## O que já existe
+
+O backend é feito em **Python + FastAPI**. Por enquanto ele só tem o esqueleto inicial — duas rotas de teste, sem lógica de IA ainda (isso vem nas próximas entregas).
+
+```
+backend/
+├── venv/              → ambiente virtual (não sobe pro GitHub)
+├── app/
+│   ├── __init__.py
+│   └── main.py         → onde ficam as rotas da API
+├── requirements.txt    → lista das bibliotecas usadas
+└── .gitignore
+```
+
+## Passo a passo pra rodar na sua máquina
+
+### 1. Clonar o repositório (se ainda não tiver feito)
+```bash
+git clone <link-do-repositorio>
+cd radar-urbano-ia/backend
+```
+
+### 2. Criar o ambiente virtual
+Um ambiente virtual isola as bibliotecas do projeto do resto do seu computador.
+
+```bash
+python -m venv venv
+```
+
+### 3. Ativar o ambiente virtual
+
+**Windows (PowerShell):**
+```powershell
+venv\Scripts\Activate.ps1
+```
+
+**Mac/Linux:**
+```bash
+source venv/bin/activate
+```
+
+Você vai saber que ativou quando aparecer um `(venv)` no começo da linha do terminal.
+
+### 4. Instalar as dependências
+Com o `(venv)` ativo:
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Rodar o servidor
+```bash
+uvicorn app.main:app --reload
+```
+
+Se der certo, o terminal mostra `Uvicorn running on http://127.0.0.1:8000`.
+
+### 6. Testar
+Abra no navegador:
+- **http://127.0.0.1:8000** → resposta simples confirmando que a API está online
+- **http://127.0.0.1:8000/docs** → documentação interativa gerada automaticamente pelo FastAPI, dá pra testar cada rota clicando
+
+## O que ainda falta (próximas etapas)
+
+- Definir front-end (React ou Angular)
+- Integrar com o Groq (IA que vai classificar os relatos)
+- Modelagem do banco de dados (PostgreSQL + pgvector)
+- Rotas reais para registrar e listar relatos
+
+## Dúvidas comuns
+
+- **"Deu erro dizendo que `uvicorn` não é reconhecido"** → o ambiente virtual não está ativado. Repete o passo 3.
+- **"Instalei tudo mas não sei se funcionou"** → roda `pip list` e confere se `fastapi` e `uvicorn` aparecem na lista.
