@@ -1,0 +1,57 @@
+# Planejamento das Sprints
+
+## Organização
+
+O desenvolvimento do projeto foi organizado em Sprints semanais, com o objetivo
+de acompanhar a evolução da plataforma de forma incremental até a entrega da C2,
+prevista para o dia 30/10/2026.
+
+Cada Sprint possui duração de uma semana:
+
+- Sprint 1: 28/09/2026 a 02/10/2026
+- Sprint 2: 05/10/2026 a 09/10/2026
+- Sprint 3: 12/10/2026 a 16/10/2026
+- Sprint 4: 19/10/2026 a 23/10/2026
+- Sprint 5: 26/10/2026 a 30/10/2026
+
+## Sprint 1 — Estudos e levantamentos
+
+Na primeira Sprint, o foco será a preparação e estruturação do projeto.
+
+Serão realizados estudos e levantamentos sobre as tecnologias, ferramentas e
+arquitetura que serão utilizadas no desenvolvimento da plataforma.
+
+Entre as atividades previstas estão:
+
+- Estruturação inicial do Backend;
+- Estruturação inicial do Frontend;
+- Levantamento e definição das tecnologias utilizadas;
+- Preparação da integração com a IA;
+- Definição das regras de classificação e priorização;
+- Levantamento dos requisitos para testes e avaliação;
+- Definição da arquitetura inicial do sistema;
+- Organização da documentação do projeto.
+
+A primeira Sprint tem como objetivo estabelecer as bases necessárias para o
+desenvolvimento das funcionalidades nas Sprints seguintes.
+
+## Controle das tarefas
+
+O acompanhamento das atividades será realizado utilizando o Jira, que será
+utilizado para:
+
+- Organização do backlog;
+- Distribuição das tarefas entre os integrantes;
+- Acompanhamento do progresso das atividades;
+- Controle das Sprints;
+- Identificação de tarefas pendentes e bloqueios;
+- Registro das decisões e atividades do projeto.
+
+O Jira será atualizado ao longo do desenvolvimento para permitir que a equipe
+acompanhe a evolução do projeto até a entrega da C2.
+
+## Objetivo da C2
+
+A organização das Sprints tem como objetivo permitir o desenvolvimento
+incremental da plataforma, buscando chegar à entrega de 30/10/2026 com o
+protótipo funcional, testado e preparado para a apresentação.
