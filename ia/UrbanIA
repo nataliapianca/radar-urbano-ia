@@ -1,0 +1,65 @@
+'''from groq import Groq
+
+client = Groq()
+completion = client.chat.completions.create(
+    model="openai/gpt-oss-120b",
+    messages=[
+      {
+        "role": "user",
+        "content": ""
+      }
+    ],
+    temperature=1,
+    max_completion_tokens=2048,
+    top_p=1,
+    reasoning_effort="medium",
+    stream=True,
+    stop=None
+)'''
+
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+)
+
+# Memória da conversa
+messages = []
+
+print("Chat iniciado! Digite 'sair' para encerrar.\n Qual e a sua queixa")
+
+while True:
+    pergunta = input("Você: ")
+
+    if pergunta.lower() == "sair":
+        print("Chat encerrado.")
+        break
+
+    # Guarda a pergunta do usuário
+    messages.append({
+        "role": "user",
+        "content": pergunta
+        })
+    
+
+    resposta = client.chat.completions.create(
+        model="openai/gpt-oss-120b",
+       messages=messages
+       )
+
+    texto_resposta = resposta.choices[0].message.content
+
+   # Não esta guardando por enquato no proximo passo sera criar json para deixar salvo o historico de conversa
+    # Guarda a resposta da IA 
+    messages.append({
+        "role": "assistant",
+        "content": texto_resposta
+    })
+
+    print("Radar UrbanIA", texto_resposta)
+    print()
