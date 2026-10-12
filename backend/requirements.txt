@@ -1,4 +1,4 @@
-﻿annotated-doc==0.0.5
+annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.15.1
 click==8.5.0
@@ -12,4 +12,4 @@ typing-inspection==0.4.4
 typing_extensions==4.16.0
 uvicorn==0.53.0
 openai==3.22.1
-groq==1.7.9
+groq==1.7.0

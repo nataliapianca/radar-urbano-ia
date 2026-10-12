@@ -1,20 +1,51 @@
-from fastapi import FastAPI
+import os
+from uuid import UUID
 
-#instancia da api, que vai receber requisições 
-app = FastAPI(
-    title="Radar Urbano IA",
-    description="API da plataforma de registro e priorização de problemas urbanos",
-    version="0.1.0"
-)
-
-
-#rota teste ora saber se servidor ta ativo
-@app.get("/")
-def read_root():
-    return {"status": "online", "mensagem": "API do Radar Urbano IA rodando"}
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
+from app.schemas.classificacao import ClassificacaoIA
+from app.repositorio import RepositorioRelatos
+from app.schemas.relatos import RelatoCriar, RelatoResposta, RelatosLista
 
 
-#rota de exemplo atualemtne e so um placeholder
-@app.get("/relatos")
-def listar_relatos():
-    return {"relatos": []}
+def criar_app() -> FastAPI:
+    app = FastAPI(title="Radar Urbano IA", version="0.2.0",
+                  description="API para registro e classificação de problemas urbanos")
+    app.state.repositorio = RepositorioRelatos()
+    origens = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[o.strip() for o in origens.split(",") if o.strip()],
+        allow_methods=["GET", "POST", "PUT"], allow_headers=["Content-Type"],
+    )
+
+    @app.get("/")
+    def read_root():
+        return {"status": "online", "mensagem": "API do Radar Urbano IA rodando"}
+
+    @app.post("/relatos", response_model=RelatoResposta, status_code=201)
+    def criar_relato(dados: RelatoCriar, request: Request):
+        return request.app.state.repositorio.criar(dados)
+
+    @app.get("/relatos", response_model=RelatosLista)
+    def listar_relatos(request: Request):
+        return RelatosLista(relatos=request.app.state.repositorio.listar())
+
+    @app.get("/relatos/{relato_id}", response_model=RelatoResposta)
+    def buscar_relato(relato_id: UUID, request: Request):
+        relato = request.app.state.repositorio.buscar(relato_id)
+        if relato is None:
+            raise HTTPException(status_code=404, detail="Relato não encontrado")
+        return relato
+
+    @app.put("/relatos/{relato_id}/classificacao", response_model=RelatoResposta)
+    def classificar_relato(relato_id: UUID, dados: ClassificacaoIA, request: Request):
+        relato = request.app.state.repositorio.classificar(relato_id, dados)
+        if relato is None:
+            raise HTTPException(status_code=404, detail="Relato não encontrado")
+        return relato
+
+    return app
+
+
+app = criar_app()
