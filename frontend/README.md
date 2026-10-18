@@ -1,6 +1,6 @@
 # Radar Urbano IA - Frontend
 
-Protótipo: estrutura inicial das telas e navegação, com dados demonstrativos.
+Interface web do Radar Urbano IA, conectada à API do backend (FastAPI).
 
 ## Tecnologias
 
@@ -14,13 +14,16 @@ Dentro de `frontend`:
 - `src/pages/`: telas.
 - `src/components/`: componentes compartilhados.
 - `src/context/` e `src/hooks/`: estado dos relatos.
-- `src/data/`: dados de exemplo.
+- `src/services/api.js`: cliente HTTP da API e conversão dos campos da API para o formato das telas.
+- `src/data/`: categorias e prioridades.
 - `src/utils/`: funções de apoio.
 - `src/App.css` e `src/index.css`: estilos.
 
 ## Backend
 
-O backend existente utiliza Python e FastAPI. Para esta entrega, não houve alterações nas rotas ou na lógica da API. O protótipo funciona sem iniciar o backend; a integração ficará para outra sprint.
+O frontend consome a API em `POST /relatos` e `GET /relatos` (contrato em `backend/CONTRATO_API.md`). O backend precisa estar em execução (`uvicorn app.main:app --reload`, em `backend/`).
+
+O endereço da API é lido de `VITE_API_URL` (padrão `http://127.0.0.1:8000`). Para mudar, copie `.env.example` para `.env` e edite.
 
 ## Execução
 
@@ -44,8 +47,10 @@ Use o menu para navegar:
 - **Mapa** (`/mapa`): esboço com marcadores dos exemplos.
 - **Painel** (`/painel`): indicadores demonstrativos.
 
-## Dados e limitações
+## Limitações
 
-Os quatro relatos iniciais e suas análises são fictícios. Novos relatos ficam apenas na memória do navegador, sem análise automática, e são removidos ao recarregar a página.
-
-Esta entrega não contempla integração com API, banco de dados ou IA real, autenticação, cadastro de usuários, envio de fotos ou busca de endereço em mapa geográfico. Mapa e painel são esboços; a região do estudo permanece a definir.
+- A localização é informada por **latitude e longitude obrigatórias**, que é o que a API exige. O campo de endereço/ponto de referência voltará quando o backend o aceitar.
+- A classificação (categoria, prioridade, risco e setor) só aparece depois que a IA, ou alguém via `PUT /relatos/{id}/classificacao`, a enviar. Até lá o relato fica como "Recebido", sem análise.
+- O backend guarda os dados em memória: reiniciar o servidor apaga os relatos.
+- O mapa é um esboço: posiciona os marcadores pelas coordenadas, sem mapa geográfico. O painel calcula os indicadores a partir dos relatos carregados.
+- Não há autenticação, envio de fotos ou busca de endereço.

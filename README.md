@@ -35,11 +35,11 @@ O projeto segue uma arquitetura **cliente-servidor em camadas**, dividida em tr�
 
 | Parte | Pasta | Tecnologia | Situação atual |
 |---|---|---|---|
-| **Frontend** | `frontend/` | React 19 + Vite + React Router | Protótipo navegável com **dados de demonstração** |
+| **Frontend** | `frontend/` | React 19 + Vite + React Router | Telas conectadas à API (cadastro e consulta de relatos) |
 | **Backend (API)** | `backend/` | Python + FastAPI + Pydantic | API REST funcional, com **armazenamento em memória** |
 | **IA** | `ia/` | Python + API Groq (modelo `openai/gpt-oss-120b`) | Script de chat em terminal, **ainda não integrado** |
 
-> ⚠️ Nesta versão inicial, as três partes funcionam de forma **independente**. O frontend ainda não consome a API, e a IA ainda não envia classificações para o backend.
+> ⚠️ O frontend já consome a API. A IA ainda é independente e não envia classificações para o backend.
 
 ### Diagrama — estado atual
 
@@ -251,8 +251,8 @@ radar-urbano-ia/
 
 ## 🚧 Limitações da versão inicial e próximos passos
 
-- [ ] Integrar o frontend com a API (hoje o frontend usa apenas dados de exemplo).
-- [ ] Alinhar os modelos de dados do frontend e da API (nomes dos campos, ponto de referência e obrigatoriedade das coordenadas).
+- [x] Integrar o frontend com a API (cadastro e listagem de relatos).
+- [ ] Definir o ponto de referência: a API só aceita latitude/longitude (obrigatórias) e o frontend ainda não tem seletor de local.
 - [ ] Implementar a classificação automática dos relatos via IA e o envio para `PUT /relatos/{id}/classificacao`.
 - [ ] Implementar a persistência em banco de dados (previsto: PostgreSQL + pgvector).
 - [ ] Definir autenticação e controle de acesso à rota de classificação.

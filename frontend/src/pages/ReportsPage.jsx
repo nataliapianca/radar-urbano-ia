@@ -6,10 +6,14 @@ import PageHeader from '../components/PageHeader'
 import ReportCard from '../components/ReportCard'
 import { categories, priorities } from '../data/categories'
 import { useReports } from '../hooks/useReports'
-import { displayId, normalizeSearch } from '../utils/formatters'
+import {
+  displayId,
+  formatCoordinates,
+  normalizeSearch,
+} from '../utils/formatters'
 
 export default function ReportsPage() {
-  const { reports } = useReports()
+  const { reports, loading, error, reload } = useReports()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
   const [priority, setPriority] = useState('')
@@ -17,7 +21,8 @@ export default function ReportsPage() {
     const text = normalizeSearch(
       [
         report.description,
-        report.location.reference,
+        formatCoordinates(report.location),
+        report.status,
         report.analysis?.category || '',
         displayId(report),
       ].join(' '),
@@ -40,13 +45,29 @@ export default function ReportsPage() {
       <PageHeader
         eyebrow="ACOMPANHAMENTO"
         title="Ocorrências"
-        description="Explore os relatos e veja como as informações podem ser organizadas para cuidar da cidade."
+        description="Consulte os relatos registrados e acompanhe como as informações são organizadas para cuidar da cidade."
       >
         <Link className="button primary" to="/">
           <Icon name="plus" size={18} />
           Registrar relato
         </Link>
       </PageHeader>
+      {loading || error ? (
+        <section className="card">
+          <EmptyState
+            icon={error ? 'info' : 'list'}
+            title={error ? 'Não foi possível carregar os relatos' : 'Carregando relatos…'}
+            description={error || 'Buscando as ocorrências registradas no servidor.'}
+          >
+            {error && (
+              <button className="button secondary" type="button" onClick={reload}>
+                Tentar novamente
+              </button>
+            )}
+          </EmptyState>
+        </section>
+      ) : (
+        <>
       <section className="card filter-card" aria-label="Filtrar ocorrências">
         <div className="filter-search">
           <label htmlFor="busca">Buscar relato</label>
@@ -57,7 +78,7 @@ export default function ReportsPage() {
               type="search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Descrição, local ou identificação"
+              placeholder="Descrição, coordenadas ou identificação"
             />
           </div>
         </div>
@@ -96,7 +117,7 @@ export default function ReportsPage() {
         <p role="status" aria-live="polite">
           <strong>{filtered.length}</strong>{' '}
           {filtered.length === 1 ? 'relato encontrado' : 'relatos encontrados'}
-          <span>Dados de exemplo</span>
+          
         </p>
         {(search || category || priority) && (
           <button className="text-button" type="button" onClick={clearFilters}>
@@ -114,7 +135,7 @@ export default function ReportsPage() {
         <section className="card">
           <EmptyState
             title="Nenhum relato encontrado"
-            description="Tente outra busca ou remova os filtros para ver os exemplos disponíveis."
+            description="Tente outra busca, remova os filtros ou registre um novo relato."
           >
             <button
               className="button secondary"
@@ -125,6 +146,8 @@ export default function ReportsPage() {
             </button>
           </EmptyState>
         </section>
+      )}
+        </>
       )}
     </>
   )

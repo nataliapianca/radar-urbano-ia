@@ -3,14 +3,25 @@ import { Link, useNavigate } from 'react-router'
 import Icon from '../components/Icon'
 import PageHeader from '../components/PageHeader'
 import { categories, categoryIcons } from '../data/categories'
-import { demoReports } from '../data/demoReports'
 import { useReports } from '../hooks/useReports'
 
 const initialForm = {
   description: '',
-  reference: '',
   latitude: '',
   longitude: '',
+}
+
+const example = {
+  description:
+    'Há um poste apagado na rua há três dias. O trecho fica sem luz durante a noite e é utilizado por moradores.',
+  latitude: '-20.3155',
+  longitude: '-40.3128',
+}
+
+function invalidCoordinate(value, limit) {
+  const text = value.trim()
+  const number = Number(text)
+  return text === '' || !Number.isFinite(number) || Math.abs(number) > limit
 }
 
 function FieldMessage({ id, error, hint }) {
@@ -28,10 +39,10 @@ export default function RegisterPage() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const descriptionRef = useRef(null)
-  const referenceRef = useRef(null)
   const latitudeRef = useRef(null)
   const longitudeRef = useRef(null)
-  const coordinatesRef = useRef(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const { addReport } = useReports()
   const navigate = useNavigate()
 
@@ -43,60 +54,45 @@ export default function RegisterPage() {
   }
 
   function fillExample() {
-    const example = demoReports[0]
-    setForm({
-      ...initialForm,
-      description: example.description,
-      reference: example.location.reference,
-    })
+    setForm(example)
     setErrors({})
+    setSubmitError('')
     descriptionRef.current?.focus()
   }
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault()
+    if (submitting) return
     const nextErrors = {}
-    if (!form.description.trim())
-      nextErrors.description = 'Descreva o problema para continuar.'
-    if (!form.reference.trim())
-      nextErrors.reference = 'Informe onde o problema foi encontrado.'
-    const hasLatitude = form.latitude.trim() !== ''
-    const hasLongitude = form.longitude.trim() !== ''
-    if (hasLatitude || hasLongitude) {
-      if (
-        !hasLatitude ||
-        !Number.isFinite(Number(form.latitude)) ||
-        Number(form.latitude) < -90 ||
-        Number(form.latitude) > 90
-      )
-        nextErrors.latitude = 'Informe uma latitude entre -90 e 90.'
-      if (
-        !hasLongitude ||
-        !Number.isFinite(Number(form.longitude)) ||
-        Number(form.longitude) < -180 ||
-        Number(form.longitude) > 180
-      )
-        nextErrors.longitude = 'Informe uma longitude entre -180 e 180.'
-    }
+    const description = form.description.trim()
+    if (description.length < 10)
+      nextErrors.description = 'Descreva o problema com pelo menos 10 caracteres.'
+    else if (description.length > 5000)
+      nextErrors.description = 'A descrição deve ter no máximo 5000 caracteres.'
+    if (invalidCoordinate(form.latitude, 90))
+      nextErrors.latitude = 'Informe uma latitude entre -90 e 90.'
+    if (invalidCoordinate(form.longitude, 180))
+      nextErrors.longitude = 'Informe uma longitude entre -180 e 180.'
     setErrors(nextErrors)
+    setSubmitError('')
     if (Object.keys(nextErrors).length) {
-      if (nextErrors.latitude || nextErrors.longitude)
-        coordinatesRef.current.open = true
       if (nextErrors.description) descriptionRef.current?.focus()
-      else if (nextErrors.reference) referenceRef.current?.focus()
       else if (nextErrors.latitude) latitudeRef.current?.focus()
       else longitudeRef.current?.focus()
       return
     }
-    const report = addReport({
-      description: form.description.trim(),
-      location: {
-        reference: form.reference.trim(),
-        latitude: hasLatitude ? Number(form.latitude) : null,
-        longitude: hasLongitude ? Number(form.longitude) : null,
-      },
-    })
-    navigate('/relatos/' + report.id, { state: { created: true } })
+    setSubmitting(true)
+    try {
+      const report = await addReport({
+        description,
+        latitude: Number(form.latitude),
+        longitude: Number(form.longitude),
+      })
+      navigate('/relatos/' + report.id, { state: { created: true } })
+    } catch (error) {
+      setSubmitError(error.message)
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -118,9 +114,9 @@ export default function RegisterPage() {
             </div>
           </div>
           <form noValidate onSubmit={submit}>
-            {Object.keys(errors).length > 0 && (
+            {(Object.keys(errors).length > 0 || submitError) && (
               <p className="form-alert" role="alert">
-                Confira os campos destacados para continuar.
+                {submitError || 'Confira os campos destacados para continuar.'}
               </p>
             )}
             <div className="form-field">
@@ -154,41 +150,19 @@ export default function RegisterPage() {
                 hint="Uma descrição clara facilita a compreensão do problema."
               />
             </div>
-            <div className="form-field">
-              <label htmlFor="localizacao">
-                Onde está o problema? <span aria-hidden="true">*</span>
-              </label>
-              <div className="input-with-icon">
-                <Icon name="pin" size={19} />
-                <input
-                  id="localizacao"
-                  name="reference"
-                  ref={referenceRef}
-                  value={form.reference}
-                  onChange={updateField}
-                  required
-                  aria-invalid={Boolean(errors.reference)}
-                  aria-describedby="localizacao-ajuda"
-                  placeholder="Endereço ou ponto de referência"
-                />
-              </div>
-              <FieldMessage
-                id="localizacao-ajuda"
-                error={errors.reference}
-                hint="O recorte do estudo de caso será definido posteriormente."
-              />
-            </div>
-            <details className="coordinates-panel" ref={coordinatesRef}>
-              <summary>
+            <div className="coordinates-panel">
+              <p className="coordinates-title">
                 <Icon name="map" size={18} />
-                Adicionar coordenadas <span>Opcional no esboço</span>
-              </summary>
+                Onde está o problema? <span aria-hidden="true">*</span>
+              </p>
               <p className="field-message">
-                Se souber a posição, informe os dois valores.
+                Informe a latitude e a longitude do local.
               </p>
               <div className="field-grid">
                 <div className="form-field">
-                  <label htmlFor="latitude">Latitude</label>
+                  <label htmlFor="latitude">
+                    Latitude <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="latitude"
                     name="latitude"
@@ -197,6 +171,7 @@ export default function RegisterPage() {
                     min="-90"
                     max="90"
                     ref={latitudeRef}
+                    required
                     value={form.latitude}
                     onChange={updateField}
                     aria-invalid={Boolean(errors.latitude)}
@@ -210,7 +185,9 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="form-field">
-                  <label htmlFor="longitude">Longitude</label>
+                  <label htmlFor="longitude">
+                    Longitude <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="longitude"
                     name="longitude"
@@ -219,6 +196,7 @@ export default function RegisterPage() {
                     min="-180"
                     max="180"
                     ref={longitudeRef}
+                    required
                     value={form.longitude}
                     onChange={updateField}
                     aria-invalid={Boolean(errors.longitude)}
@@ -232,14 +210,18 @@ export default function RegisterPage() {
                   />
                 </div>
               </div>
-            </details>
+            </div>
             <div className="form-submit">
               <p>
-                <Icon name="info" size={17} />O relato de exemplo ficará apenas
-                nesta sessão. Ao recarregar a página, ele será removido.
+                <Icon name="info" size={17} />O relato será enviado ao
+                servidor e poderá ser consultado em Ocorrências.
               </p>
-              <button className="button primary" type="submit">
-                Criar relato de exemplo
+              <button
+                className="button primary"
+                type="submit"
+                disabled={submitting}
+              >
+                {submitting ? 'Enviando…' : 'Enviar relato'}
                 <Icon name="arrow" size={18} />
               </button>
             </div>
@@ -276,7 +258,7 @@ export default function RegisterPage() {
               </li>
             </ol>
             <Link className="text-link" to="/relatos">
-              Explorar relatos de exemplo
+              Ver ocorrências registradas
               <Icon name="arrow" size={17} />
             </Link>
           </section>

@@ -4,13 +4,38 @@ import Icon from '../components/Icon'
 import PageHeader from '../components/PageHeader'
 import PriorityBadge from '../components/PriorityBadge'
 import { useReports } from '../hooks/useReports'
-import { displayId, formatDate, reportTitle } from '../utils/formatters'
+import {
+  displayId,
+  formatCoordinates,
+  formatDate,
+  reportTitle,
+} from '../utils/formatters'
 
 export default function ReportDetailPage() {
   const { reportId } = useParams()
   const { state } = useLocation()
-  const { reports } = useReports()
+  const { reports, loading, error, reload } = useReports()
   const report = reports.find((item) => item.id === reportId)
+
+  if (loading || error) {
+    return (
+      <section className="card">
+        <EmptyState
+          icon={error ? 'info' : 'list'}
+          title={
+            error ? 'Não foi possível carregar o relato' : 'Carregando relato…'
+          }
+          description={error || 'Buscando as informações no servidor.'}
+        >
+          {error && (
+            <button className="button secondary" type="button" onClick={reload}>
+              Tentar novamente
+            </button>
+          )}
+        </EmptyState>
+      </section>
+    )
+  }
 
   if (!report) {
     return (
@@ -18,7 +43,7 @@ export default function ReportDetailPage() {
         <EmptyState
           icon="list"
           title="Relato não encontrado"
-          description="Os relatos criados nesta demonstração são removidos ao recarregar a página. Você pode consultar os exemplos disponíveis."
+          description="Não há um relato registrado com este identificador. Você pode consultar as ocorrências disponíveis."
         >
           <Link className="button primary" to="/relatos">
             Ver ocorrências
@@ -34,19 +59,19 @@ export default function ReportDetailPage() {
         <Icon name="back" size={17} />
         Voltar para ocorrências
       </Link>
-      {state?.created && report.source === 'session' && (
+      {state?.created && (
         <div className="success-notice" role="status">
           <Icon name="check" size={21} />
           <div>
-            <strong>Relato de exemplo criado.</strong>
-            <p>Ele ficará disponível durante esta sessão de demonstração.</p>
+            <strong>Relato enviado.</strong>
+            <p>Ele foi registrado e aguarda a análise.</p>
           </div>
         </div>
       )}
       <PageHeader
-        eyebrow={displayId(report) + ' · DADOS DE EXEMPLO'}
+        eyebrow={displayId(report) + ' · ' + report.status.toUpperCase()}
         title={reportTitle(report)}
-        description="Informações do relato e espaço para o resultado da análise."
+        description="Informações do relato e resultado da análise."
       />
       <div className="details-layout">
         <section className="card detail-card" aria-labelledby="relato-title">
@@ -56,21 +81,16 @@ export default function ReportDetailPage() {
             <Icon name="pin" size={20} />
             <div>
               <h3>Localização</h3>
-              <p>{report.location.reference}</p>
+              <p className="coordinates-value">
+                {formatCoordinates(report.location)}
+              </p>
               <small>Região do estudo a definir</small>
-              {report.location.latitude !== null &&
-                report.location.longitude !== null && (
-                  <p className="coordinates-value">
-                    Latitude: {report.location.latitude} · Longitude:{' '}
-                    {report.location.longitude}
-                  </p>
-                )}
             </div>
           </div>
           <div className="detail-meta">
             <Icon name="clock" size={20} />
             <div>
-              <h3>Data do exemplo</h3>
+              <h3>Data do registro</h3>
               <time dateTime={report.createdAt}>
                 {formatDate(report.createdAt)}
               </time>
@@ -86,8 +106,8 @@ export default function ReportDetailPage() {
               <h2 id="analise-title">Resultado da análise</h2>
               <p>
                 {report.analysis
-                  ? 'Apresentação ilustrativa das informações previstas.'
-                  : 'Área prevista para os resultados do relato.'}
+                  ? 'Classificação registrada para este relato.'
+                  : 'Situação: ' + report.status + '.'}
               </p>
             </div>
           </div>
@@ -115,27 +135,29 @@ export default function ReportDetailPage() {
                 <div>
                   <h3>Setor responsável sugerido</h3>
                   <p>{report.analysis.suggestedSector}</p>
-                  <small>
-                    Sugestão ilustrativa, sem encaminhamento a um órgão.
-                  </small>
+                  <small>Sugestão, sem encaminhamento a um órgão.</small>
                 </div>
               </div>
-              <p className="analysis-note">
-                <Icon name="info" size={17} />
-                Estes resultados são exemplos preparados para o protótipo.
-              </p>
+              {report.analysis.details.length > 0 && (
+                <div className="analysis-item">
+                  <Icon name="list" size={20} />
+                  <div>
+                    <h3>Informações relevantes</h3>
+                    <ul>
+                      {report.analysis.details.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </>
           ) : (
             <EmptyState
               icon="sparkles"
               title="Análise ainda não disponível"
-              description="Categoria, prioridade, risco e setor sugerido terão espaço aqui. Consulte um relato de exemplo para visualizar essa apresentação."
-            >
-              <Link className="button secondary" to="/relatos/exemplo-001">
-                Ver análise de exemplo
-                <Icon name="arrow" size={17} />
-              </Link>
-            </EmptyState>
+              description="Categoria, prioridade, risco e setor sugerido aparecerão aqui quando o relato for classificado."
+            />
           )}
         </section>
       </div>
