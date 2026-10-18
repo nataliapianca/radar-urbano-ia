@@ -27,7 +27,7 @@ async function request(path, options = {}) {
   } catch (error) {
     if (error.name === 'AbortError') throw error
     throw new ApiError(
-      'Não foi possível conectar ao servidor. Verifique se o backend está em execução.',
+      'O serviço está indisponível no momento. Verifique sua conexão e tente novamente em instantes.',
       0,
     )
   }
