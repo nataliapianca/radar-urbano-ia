@@ -1,6 +1,11 @@
 import { Link } from 'react-router'
 import { categoryIcons } from '../data/categories'
-import { displayId, formatDate, reportTitle } from '../utils/formatters'
+import {
+  displayId,
+  formatCoordinates,
+  formatDate,
+  reportTitle,
+} from '../utils/formatters'
 import Icon from './Icon'
 import PriorityBadge from './PriorityBadge'
 
@@ -26,7 +31,7 @@ export default function ReportCard({ report }) {
       <p className="report-description">{report.description}</p>
       <p className="report-location">
         <Icon name="pin" size={16} />
-        {report.location.reference}
+        {formatCoordinates(report.location)}
       </p>
       <div className="report-card-bottom">
         <time dateTime={report.createdAt}>{formatDate(report.createdAt)}</time>

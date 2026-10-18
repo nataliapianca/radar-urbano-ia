@@ -7,7 +7,7 @@ export default function NotFoundPage() {
       <EmptyState
         icon="map"
         title="Página não encontrada"
-        description="Use a navegação para registrar um relato ou explorar as ocorrências de exemplo."
+        description="Use a navegação para registrar um relato ou consultar as ocorrências registradas."
       >
         <Link className="button primary" to="/">
           Ir para o registro de relatos

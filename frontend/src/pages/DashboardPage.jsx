@@ -6,7 +6,7 @@ import { categories, priorities } from '../data/categories'
 import { useReports } from '../hooks/useReports'
 
 export default function DashboardPage() {
-  const { reports } = useReports()
+  const { reports, error } = useReports()
   const analyzed = reports.filter((report) => report.analysis)
   const categoryCounts = categories.map((category) => ({
     category,
@@ -20,16 +20,16 @@ export default function DashboardPage() {
   const represented = categoryCounts.filter((item) => item.count > 0).length
   const statistics = [
     {
-      label: 'Relatos na demonstração',
+      label: 'Relatos registrados',
       value: reports.length,
       icon: 'list',
-      hint: 'Exemplos e criações desta sessão',
+      hint: 'Total recebido pelo servidor',
     },
     {
-      label: 'Exemplos com prioridade alta',
+      label: 'Relatos com prioridade alta',
       value: highCount,
       icon: 'shield',
-      hint: 'Classificações ilustrativas',
+      hint: 'Entre os relatos classificados',
     },
     {
       label: 'Categorias representadas',
@@ -44,10 +44,15 @@ export default function DashboardPage() {
       <PageHeader
         eyebrow="VISÃO ADMINISTRATIVA"
         title="Painel de ocorrências"
-        description="Estrutura inicial dos indicadores para acompanhar a distribuição dos relatos. Todos os números se referem à demonstração."
+        description="Estrutura inicial dos indicadores para acompanhar a distribuição dos relatos. Os números vêm dos relatos registrados no servidor."
       >
         <span className="outline-pill">Esboço</span>
       </PageHeader>
+      {error && (
+        <p className="form-alert" role="alert">
+          Não foi possível carregar os relatos: {error}
+        </p>
+      )}
       <div className="statistics-grid">
         {statistics.map((item) => (
           <section className="card statistic-card" key={item.label}>
@@ -67,7 +72,7 @@ export default function DashboardPage() {
           <div className="section-heading">
             <div>
               <h2>Relatos por categoria</h2>
-              <p>Distribuição dos resultados de exemplo.</p>
+              <p>Distribuição dos relatos classificados.</p>
             </div>
           </div>
           <ul className="category-chart">
@@ -88,7 +93,7 @@ export default function DashboardPage() {
           <div className="section-heading">
             <div>
               <h2>Distribuição de prioridades</h2>
-              <p>Exemplos com análise ilustrativa.</p>
+              <p>Relatos já classificados.</p>
             </div>
           </div>
           <div className="priority-totals">
@@ -110,8 +115,8 @@ export default function DashboardPage() {
             <p>
               {reports.length - analyzed.length}{' '}
               {reports.length - analyzed.length === 1
-                ? 'relato de exemplo sem análise.'
-                : 'relatos de exemplo sem análise.'}
+                ? 'relato sem análise.'
+                : 'relatos sem análise.'}
             </p>
           </div>
           <Link className="text-link" to="/relatos">

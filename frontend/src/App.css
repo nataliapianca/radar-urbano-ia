@@ -316,30 +316,18 @@
   border-radius: 8px;
   background: #f9fbfe;
 }
-.coordinates-panel summary {
+.coordinates-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
+  margin: 0 0 4px;
   font-size: var(--text-ui);
   font-weight: 600;
   min-height: 28px;
-  flex-wrap: wrap;
 }
-.coordinates-panel summary::before {
-  content: '+';
-  font-size: var(--text-card-title);
-  line-height: 1;
-  color: #5c7394;
-}
-.coordinates-panel[open] summary::before {
-  content: '−';
-}
-.coordinates-panel summary span {
-  margin-left: auto;
-  color: var(--muted);
-  font-size: var(--text-small);
-  font-weight: 400;
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 .field-grid {
   display: grid;
@@ -883,6 +871,10 @@
   background: #4e9d73;
   color: white;
 }
+.map-marker.pending {
+  background: #8696ad;
+  color: white;
+}
 .map-marker:hover {
   box-shadow: 0 3px 15px #18365c66;
 }
@@ -1244,14 +1236,9 @@
   .coordinates-panel {
     padding-inline: 10px;
   }
-  .coordinates-panel summary {
+  .coordinates-title {
     font-size: var(--text-small);
     gap: 6px;
-    flex-wrap: wrap;
-  }
-  .coordinates-panel summary span {
-    width: 100%;
-    padding-left: 34px;
   }
   .filter-card {
     grid-template-columns: 1fr;

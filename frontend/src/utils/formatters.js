@@ -5,7 +5,6 @@ export function formatDate(value) {
     year: 'numeric',
   }).format(new Date(value))
 }
-
 export function reportTitle(report) {
   const firstSentence = report.description.split(/[.!?]/)[0].trim()
   return firstSentence.length > 95
@@ -14,9 +13,16 @@ export function reportTitle(report) {
 }
 
 export function displayId(report) {
-  return report.source === 'fixture'
-    ? 'EX ' + report.id.split('-').at(-1)
-    : 'DEMO ' + report.id.slice(-6).toUpperCase()
+  return '#' + report.id.slice(0, 8).toUpperCase()
+}
+
+export function formatCoordinates(location) {
+  return (
+    'Lat. ' +
+    location.latitude.toFixed(5) +
+    ' · Long. ' +
+    location.longitude.toFixed(5)
+  )
 }
 
 export function normalizeSearch(value) {
