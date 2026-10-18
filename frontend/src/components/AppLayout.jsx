@@ -59,14 +59,14 @@ export default function AppLayout() {
           </nav>
           <span className="demo-pill">
             <span className="status-dot" />
-            Demonstração
+            Protótipo
           </span>
         </div>
       </header>
       <div className="demo-notice">
         <div className="container">
           <Icon name="info" size={17} />
-          <span>Protótipo de navegação com dados de exemplo.</span>
+          <span>Protótipo conectado ao backend. A análise por IA ainda não está integrada.</span>
           <span className="study-region">
             <Icon name="pin" size={15} />
             Região a definir

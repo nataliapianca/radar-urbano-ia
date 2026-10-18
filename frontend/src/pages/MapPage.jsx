@@ -5,19 +5,29 @@ import PriorityBadge from '../components/PriorityBadge'
 import { useReports } from '../hooks/useReports'
 import { displayId, reportTitle } from '../utils/formatters'
 
-const positions = [
-  { left: '24%', top: '12%' },
-  { left: '65%', top: '12%' },
-  { left: '76%', top: '90%' },
-  { left: '32%', top: '90%' },
-]
 const priorityStyles = { Alta: 'high', Média: 'medium', Baixa: 'low' }
+const MAX_MARKERS = 30
+
+// Posiciona os marcadores pela caixa delimitadora dos relatos (mapa ilustrativo).
+function markerPositions(list) {
+  const lats = list.map((report) => report.location.latitude)
+  const lons = list.map((report) => report.location.longitude)
+  const minLat = Math.min(...lats)
+  const maxLat = Math.max(...lats)
+  const minLon = Math.min(...lons)
+  const maxLon = Math.max(...lons)
+  const scale = (value, min, max) =>
+    max === min ? 50 : 12 + ((value - min) / (max - min)) * 76
+  return list.map((report) => ({
+    left: scale(report.location.longitude, minLon, maxLon) + '%',
+    top: 100 - scale(report.location.latitude, minLat, maxLat) + '%',
+  }))
+}
 
 export default function MapPage() {
   const { reports } = useReports()
-  const examples = reports
-    .filter((report) => report.source === 'fixture')
-    .slice(0, positions.length)
+  const shown = reports.slice(0, MAX_MARKERS)
+  const positions = shown.length ? markerPositions(shown) : []
 
   return (
     <>
@@ -38,7 +48,7 @@ export default function MapPage() {
             <div>
               <strong>Região a definir</strong>
               <span>
-                Posições ilustrativas, sem correspondência geográfica.
+                Posições relativas às coordenadas dos relatos, sem mapa geográfico.
               </span>
             </div>
           </div>
@@ -53,19 +63,21 @@ export default function MapPage() {
               <strong>Seu território, em perspectiva</strong>
               <span>O mapa da região será incluído nesta área.</span>
             </div>
-            {examples.map((report, index) => (
+            {shown.map((report, index) => (
               <Link
                 key={report.id}
                 to={'/relatos/' + report.id}
                 style={positions[index]}
                 className={
-                  'map-marker ' + priorityStyles[report.analysis.priority]
+                  'map-marker ' +
+                  (priorityStyles[report.analysis?.priority] || 'pending')
                 }
                 aria-label={
                   'Ver ' +
                   displayId(report) +
-                  ', prioridade ' +
-                  report.analysis.priority.toLowerCase()
+                  (report.analysis
+                    ? ', prioridade ' + report.analysis.priority.toLowerCase()
+                    : ', sem análise')
                 }
               >
                 <Icon name="pin" size={24} />
@@ -80,9 +92,13 @@ export default function MapPage() {
           </div>
         </section>
         <aside className="card map-reports">
-          <h2>Relatos de exemplo</h2>
-          <p>Clique em um marcador ou consulte os detalhes.</p>
-          {examples.map((report) => (
+          <h2>Relatos registrados</h2>
+          <p>
+            {shown.length
+              ? 'Clique em um marcador ou consulte os detalhes.'
+              : 'Nenhum relato registrado ainda.'}
+          </p>
+          {shown.map((report) => (
             <Link
               key={report.id}
               className="map-report"
@@ -93,7 +109,7 @@ export default function MapPage() {
                 <Icon name="arrow" size={17} />
               </span>
               <strong>{reportTitle(report)}</strong>
-              <PriorityBadge priority={report.analysis.priority} />
+              <PriorityBadge priority={report.analysis?.priority} />
             </Link>
           ))}
         </aside>
