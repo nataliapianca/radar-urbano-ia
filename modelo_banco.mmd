@@ -1,0 +1,56 @@
+erDiagram
+    STATUS_RELATO ||--o{ RELATO : "status atual"
+    RELATO ||--o{ CLASSIFICACAO : "recebe versões"
+    CATEGORIA ||--o{ CLASSIFICACAO : "classifica"
+    PRIORIDADE ||--o{ CLASSIFICACAO : "prioriza"
+    CLASSIFICACAO ||--o{ INFORMACAO_RELEVANTE : "contém até 20"
+    RELATO ||--o{ HISTORICO_STATUS : "registra"
+    STATUS_RELATO ||--o{ HISTORICO_STATUS : "status novo"
+    STATUS_RELATO |o--o{ HISTORICO_STATUS : "status anterior"
+
+    CATEGORIA {
+        smallint id PK
+        varchar nome UK
+    }
+    PRIORIDADE {
+        smallint id PK
+        varchar nome UK
+        smallint ordem UK
+    }
+    STATUS_RELATO {
+        smallint id PK
+        varchar nome UK
+        smallint ordem UK
+    }
+    RELATO {
+        uuid id PK
+        varchar texto "10 a 5000"
+        double latitude "-90 a 90"
+        double longitude "-180 a 180"
+        text referencia_local "NULL, pendente"
+        smallint status_id FK
+        timestamptz criado_em
+    }
+    CLASSIFICACAO {
+        bigint id PK
+        uuid relato_id FK
+        smallint categoria_id FK
+        smallint prioridade_id FK
+        varchar setor
+        varchar risco_associado
+        varchar modelo_ia "NULL"
+        boolean vigente "1 por relato"
+        timestamptz classificado_em
+    }
+    INFORMACAO_RELEVANTE {
+        bigint classificacao_id PK, FK
+        smallint ordem PK "1 a 20"
+        text texto
+    }
+    HISTORICO_STATUS {
+        bigint id PK
+        uuid relato_id FK
+        smallint status_anterior_id FK "NULL na criação"
+        smallint status_novo_id FK
+        timestamptz alterado_em
+    }
