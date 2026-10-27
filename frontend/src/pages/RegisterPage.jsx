@@ -4,24 +4,24 @@ import Icon from '../components/Icon'
 import PageHeader from '../components/PageHeader'
 import { categories, categoryIcons } from '../data/categories'
 import { useReports } from '../hooks/useReports'
+import { searchAddress } from '../services/api'
 
 const initialForm = {
   description: '',
-  latitude: '',
-  longitude: '',
+  address: '',
 }
 
 const example = {
   description:
     'Há um poste apagado na rua há três dias. O trecho fica sem luz durante a noite e é utilizado por moradores.',
-  latitude: '-20.3155',
-  longitude: '-40.3128',
+  address: 'Vitória, Espírito Santo (localização de exemplo)',
 }
 
-function invalidCoordinate(value, limit) {
-  const text = value.trim()
-  const number = Number(text)
-  return text === '' || !Number.isFinite(number) || Math.abs(number) > limit
+const exampleLocation = {
+  latitude: -20.3155,
+  longitude: -40.3128,
+  endereco: 'Vitória, Espírito Santo (localização de exemplo)',
+  atribuicao: null,
 }
 
 function FieldMessage({ id, error, hint }) {
@@ -39,14 +39,22 @@ export default function RegisterPage() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const descriptionRef = useRef(null)
-  const latitudeRef = useRef(null)
-  const longitudeRef = useRef(null)
+  const addressRef = useRef(null)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [searchingAddress, setSearchingAddress] = useState(false)
+  const [addressError, setAddressError] = useState('')
+  const [addressOptions, setAddressOptions] = useState([])
+  const [selectedLocation, setSelectedLocation] = useState(null)
   const { addReport } = useReports()
   const navigate = useNavigate()
 
   function updateField(event) {
+    if (event.target.name === 'address') {
+      setSelectedLocation(null)
+      setAddressOptions([])
+      setAddressError('')
+    }
     setForm((current) => ({
       ...current,
       [event.target.name]: event.target.value,
@@ -55,9 +63,39 @@ export default function RegisterPage() {
 
   function fillExample() {
     setForm(example)
+    setSelectedLocation(exampleLocation)
+    setAddressOptions([])
+    setAddressError('')
     setErrors({})
     setSubmitError('')
     descriptionRef.current?.focus()
+  }
+
+  async function findAddress() {
+    const address = form.address.trim()
+    if (address.length < 5) {
+      setAddressError('Informe rua, número, bairro e cidade para buscar o local.')
+      addressRef.current?.focus()
+      return
+    }
+    setSearchingAddress(true)
+    setAddressError('')
+    setAddressOptions([])
+    setSelectedLocation(null)
+    try {
+      const results = await searchAddress(address)
+      if (!results.length) {
+        setAddressError(
+          'Nenhum local encontrado. Confira o endereço e tente novamente.',
+        )
+        return
+      }
+      setAddressOptions(results)
+    } catch (error) {
+      setAddressError(error.message)
+    } finally {
+      setSearchingAddress(false)
+    }
   }
 
   async function submit(event) {
@@ -69,24 +107,23 @@ export default function RegisterPage() {
       nextErrors.description = 'Descreva o problema com pelo menos 10 caracteres.'
     else if (description.length > 5000)
       nextErrors.description = 'A descrição deve ter no máximo 5000 caracteres.'
-    if (invalidCoordinate(form.latitude, 90))
-      nextErrors.latitude = 'Informe uma latitude entre -90 e 90.'
-    if (invalidCoordinate(form.longitude, 180))
-      nextErrors.longitude = 'Informe uma longitude entre -180 e 180.'
+    if (!selectedLocation)
+      nextErrors.address = 'Busque e confirme o endereço do problema.'
     setErrors(nextErrors)
     setSubmitError('')
     if (Object.keys(nextErrors).length) {
       if (nextErrors.description) descriptionRef.current?.focus()
-      else if (nextErrors.latitude) latitudeRef.current?.focus()
-      else longitudeRef.current?.focus()
+      else addressRef.current?.focus()
       return
     }
     setSubmitting(true)
     try {
       const report = await addReport({
         description,
-        latitude: Number(form.latitude),
-        longitude: Number(form.longitude),
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        address: selectedLocation.endereco,
+        attribution: selectedLocation.atribuicao,
       })
       navigate('/relatos/' + report.id, { state: { created: true } })
     } catch (error) {
@@ -156,60 +193,85 @@ export default function RegisterPage() {
                 Onde está o problema? <span aria-hidden="true">*</span>
               </p>
               <p className="field-message">
-                Informe a latitude e a longitude do local.
+                Informe o endereço completo. Vamos buscar opções para você
+                escolher a correta.
               </p>
-              <div className="field-grid">
-                <div className="form-field">
-                  <label htmlFor="latitude">
-                    Latitude <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="latitude"
-                    name="latitude"
-                    type="number"
-                    step="any"
-                    min="-90"
-                    max="90"
-                    ref={latitudeRef}
-                    required
-                    value={form.latitude}
-                    onChange={updateField}
-                    aria-invalid={Boolean(errors.latitude)}
-                    aria-describedby="latitude-ajuda"
-                    placeholder="Entre -90 e 90"
-                  />
-                  <FieldMessage
-                    id="latitude-ajuda"
-                    error={errors.latitude}
-                    hint="Coordenada em graus decimais."
-                  />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="longitude">
-                    Longitude <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="longitude"
-                    name="longitude"
-                    type="number"
-                    step="any"
-                    min="-180"
-                    max="180"
-                    ref={longitudeRef}
-                    required
-                    value={form.longitude}
-                    onChange={updateField}
-                    aria-invalid={Boolean(errors.longitude)}
-                    aria-describedby="longitude-ajuda"
-                    placeholder="Entre -180 e 180"
-                  />
-                  <FieldMessage
-                    id="longitude-ajuda"
-                    error={errors.longitude}
-                    hint="Coordenada em graus decimais."
-                  />
-                </div>
+              <div className="form-field address-search-field">
+                <label htmlFor="endereco">
+                  Endereço do problema <span aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="endereco"
+                  name="address"
+                  ref={addressRef}
+                  value={form.address}
+                  onChange={updateField}
+                  aria-invalid={Boolean(errors.address || addressError)}
+                  aria-describedby="endereco-ajuda"
+                  placeholder="Rua, número, bairro, cidade e estado"
+                  maxLength={300}
+                />
+                <FieldMessage
+                  id="endereco-ajuda"
+                  error={errors.address || addressError}
+                  hint="Ex.: Rua Exemplo, 123, Centro, Vitória, ES"
+                />
+                <button
+                  className="button secondary address-search-button"
+                  type="button"
+                  onClick={findAddress}
+                  disabled={searchingAddress}
+                >
+                  <Icon name="map" size={18} />
+                  {searchingAddress ? 'Buscando endereço...' : 'Buscar endereço'}
+                </button>
+                <p className="geocoding-attribution">
+                  Geocodificação por{' '}
+                  <a
+                    href="https://www.geoapify.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Geoapify
+                  </a>{' '}
+                  .
+                </p>
               </div>
+              {addressOptions.length > 0 && (
+                <div className="address-options" aria-label="Endereços encontrados">
+                  <p className="address-options-title">Selecione o local correto:</p>
+                  {addressOptions.map((option, index) => (
+                    <button
+                      className="address-option"
+                      key={`${option.latitude}-${option.longitude}-${index}`}
+                      type="button"
+                      onClick={() => {
+                        setSelectedLocation(option)
+                        setAddressOptions([])
+                        setAddressError('')
+                        setForm((current) => ({ ...current, address: option.endereco }))
+                      }}
+                    >
+                      {option.endereco}
+                      {option.atribuicao && <small>{option.atribuicao}</small>}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {selectedLocation && (
+                <div className="selected-address" role="status">
+                  <strong>Local confirmado</strong>
+                  <span>{selectedLocation.endereco}</span>
+                  <small>
+                    Coordenadas encontradas:{' '}
+                    {selectedLocation.latitude.toFixed(5)},{' '}
+                    {selectedLocation.longitude.toFixed(5)}
+                  </small>
+                  {selectedLocation.atribuicao && (
+                    <small>{selectedLocation.atribuicao}</small>
+                  )}
+                </div>
+              )}
             </div>
             <div className="form-submit">
               <p>
