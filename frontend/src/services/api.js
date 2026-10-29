@@ -47,6 +47,8 @@ export function fromApi(relato) {
     location: {
       latitude: relato.localizacao.latitude,
       longitude: relato.localizacao.longitude,
+      address: relato.localizacao.endereco,
+      attribution: relato.localizacao.atribuicao,
     },
     createdAt: relato.criado_em,
     status: relato.status,
@@ -67,13 +69,32 @@ export async function listReports(options) {
   return data.relatos.map(fromApi)
 }
 
-export async function createReport({ description, latitude, longitude }) {
+export async function createReport({
+  description,
+  latitude,
+  longitude,
+  address,
+  attribution,
+}) {
   const relato = await request('/relatos', {
     method: 'POST',
     body: JSON.stringify({
       texto: description,
-      localizacao: { latitude, longitude },
+      localizacao: {
+        latitude,
+        longitude,
+        endereco: address || null,
+        atribuicao: attribution || null,
+      },
     }),
   })
   return fromApi(relato)
+}
+
+export async function searchAddress(address) {
+  const data = await request('/localizacoes/buscar', {
+    method: 'POST',
+    body: JSON.stringify({ endereco: address }),
+  })
+  return data.resultados
 }

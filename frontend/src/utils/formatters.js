@@ -17,6 +17,7 @@ export function displayId(report) {
 }
 
 export function formatCoordinates(location) {
+  if (location.address) return location.address
   return (
     'Lat. ' +
     location.latitude.toFixed(5) +

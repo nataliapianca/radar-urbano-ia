@@ -338,6 +338,66 @@
 .field-grid .form-field {
   margin-bottom: 2px;
 }
+.address-search-field {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+.address-search-button {
+  margin-top: 12px;
+}
+.geocoding-attribution {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: var(--text-small);
+}
+.geocoding-attribution a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.address-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.address-options-title {
+  font-size: var(--text-small);
+  font-weight: 650;
+  color: var(--heading);
+}
+.address-option {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #cbd6e4;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--heading);
+  text-align: left;
+  line-height: 1.5;
+}
+.address-option:hover {
+  border-color: var(--brand);
+  background: #f5f8ff;
+}
+.selected-address {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid #a8d8bd;
+  border-radius: 8px;
+  background: #f1fbf5;
+  color: #22543a;
+}
+.selected-address small {
+  color: #52705f;
+}
+.location-attribution {
+  display: block;
+  margin-top: -8px;
+  margin-left: 24px;
+  color: var(--muted);
+  font-size: var(--text-small);
+}
 .form-submit {
   display: flex;
   align-items: center;

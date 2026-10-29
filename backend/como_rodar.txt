@@ -1,76 +1,34 @@
-# Como rodar o backend — Radar Urbano IA
+# Como rodar o backend - Radar Urbano IA
 
-Esse guia explica o que já foi montado no `backend/` e como qualquer pessoa do grupo consegue rodar o projeto na própria máquina.
+## Requisitos
 
-## O que já existe
+- Python 3 instalado.
+- Uma chave Geoapify para habilitar a busca de endereços. Sem ela, as outras rotas da API continuam funcionando.
 
-O backend é feito em **Python + FastAPI**. Por enquanto ele só tem o esqueleto inicial — duas rotas de teste, sem lógica de IA ainda (isso vem nas próximas entregas).
+## Iniciar no Windows (PowerShell)
 
-```
-backend/
-├── venv/              → ambiente virtual (não sobe pro GitHub)
-├── app/
-│   ├── __init__.py
-│   └── main.py         → onde ficam as rotas da API
-├── requirements.txt    → lista das bibliotecas usadas
-└── .gitignore
-```
+Abra o terminal na pasta `backend` e execute:
 
-## Passo a passo pra rodar na sua máquina
-
-### 1. Clonar o repositório (se ainda não tiver feito)
-```bash
-git clone <link-do-repositorio>
-cd radar-urbano-ia/backend
-```
-
-### 2. Criar o ambiente virtual
-Um ambiente virtual isola as bibliotecas do projeto do resto do seu computador.
-
-```bash
-python -m venv venv
-```
-
-### 3. Ativar o ambiente virtual
-
-**Windows (PowerShell):**
 ```powershell
+py -m venv venv
 .\venv\Scripts\Activate.ps1
-```
-
-**Mac/Linux:**
-```bash
-source venv/bin/activate
-```
-
-Você vai saber que ativou quando aparecer um `(venv)` no começo da linha do terminal.
-
-### 4. Instalar as dependências
-Com o `(venv)` ativo:
-```bash
 pip install -r requirements.txt
-```
-
-### 5. Rodar o servidor
-```bash
+$env:GEOAPIFY_API_KEY = "SUA_CHAVE_GEOAPIFY"
 uvicorn app.main:app --reload
 ```
 
-Se der certo, o terminal mostra `Uvicorn running on http://127.0.0.1:8000`.
+Se o ambiente virtual já existir, pule `py -m venv venv`. Se as dependências já estiverem instaladas, pule `pip install`.
 
-### 6. Testar
-Abra no navegador:
-- **http://127.0.0.1:8000** → resposta simples confirmando que a API está online
-- **http://127.0.0.1:8000/docs** → documentação interativa gerada automaticamente pelo FastAPI, dá pra testar cada rota clicando
+O servidor fica em `http://127.0.0.1:8000` e a documentação automática em `http://127.0.0.1:8000/docs`.
 
-## O que ainda falta (próximas etapas)
+A chave é configurada só no terminal do backend. Não coloque a chave no frontend nem faça commit dela no GitHub. O serviço Geoapify exige uma chave para a busca de endereços; consulte o contrato da API para detalhes.
 
-- Definir front-end (React ou Angular)
-- Integrar com o Groq (IA que vai classificar os relatos)
-- Modelagem do banco de dados (PostgreSQL + pgvector)
-- Rotas reais para registrar e listar relatos
+## Rotas principais
 
-## Dúvidas comuns
+- `POST /relatos`: registra um relato com texto e localização.
+- `GET /relatos`: lista os relatos.
+- `GET /relatos/{id}`: consulta um relato.
+- `POST /localizacoes/buscar`: busca coordenadas a partir de um endereço.
+- `PUT /relatos/{id}/classificacao`: recebe a classificação gerada pela Frente 3.
 
-- **"Deu erro dizendo que `uvicorn` não é reconhecido"** → o ambiente virtual não está ativado. Repete o passo 3.
-- **"Instalei tudo mas não sei se funcionou"** → roda `pip list` e confere se `fastapi` e `uvicorn` aparecem na lista.
+Os relatos são mantidos em memória e desaparecem quando o servidor reinicia. A busca de endereço retorna opções; o usuário precisa confirmar uma delas antes de cadastrar o relato.
