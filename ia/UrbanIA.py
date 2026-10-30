@@ -1,13 +1,12 @@
 import os
 import json
+from pathlib import Path
 from typing import Literal
 
-import openai
-from openai import OpenAI
 from dotenv import load_dotenv
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-load_dotenv()
+load_dotenv(Path(__file__).with_name(".env"))
 
 MODELO = "openai/gpt-oss-120b"
 
@@ -17,6 +16,9 @@ USE_MOCK = os.getenv("USE_MOCK", "false").strip().lower() == "true"
 
 client = None
 if not USE_MOCK:
+    import openai
+    from openai import OpenAI
+
     client = OpenAI(
         api_key=os.getenv("GROQ_API_KEY"),
         base_url="https://api.groq.com/openai/v1",
@@ -49,6 +51,8 @@ class Verificacao(BaseModel):
 
 def _chamar_groq(prompt_sistema, relato, nome_schema, schema):
     """Faz a chamada ao Groq e devolve o JSON da resposta como dicionário."""
+    import openai
+
     try:
         resposta = client.chat.completions.create(
             model=MODELO,

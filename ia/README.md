@@ -10,6 +10,7 @@ A IA usa o **Groq** pelo cliente `openai`, com o modelo `openai/gpt-oss-120b`.
 |---|---|
 | `UrbanIA.py` | Lógica da IA: cliente Groq, prompts, schemas, validação, tratamento de erros e mock. Não tem `input`, `print` nem loop. |
 | `Chat.py` | Interface no terminal para testar a IA: recebe o relato, faz até 3 perguntas de complemento e mostra a classificação. |
+| `integrar_backend.py` | Busca relatos recebidos na API, classifica e grava o resultado em `PUT /relatos/{id}/classificacao`. |
 | `.env` | Variáveis de configuração (não vai para o Git). |
 
 ## Como rodar
@@ -24,6 +25,27 @@ A IA usa o **Groq** pelo cliente `openai`, com o modelo `openai/gpt-oss-120b`.
    python Chat.py
    ```
 4. Escreva o relato, responda às perguntas da IA e veja o JSON da classificação. Digite `sair` para encerrar.
+
+## Conectar à API
+
+Inicie o backend em um terminal (`uvicorn app.main:app --reload`, dentro de `backend/`).
+Em outro terminal, dentro da pasta `ia/`, execute:
+
+```powershell
+python integrar_backend.py
+```
+
+O comando busca todos os relatos com status `Recebido`, classifica o texto e envia
+cada resultado à API. Para processar apenas um relato, use:
+
+```powershell
+python integrar_backend.py --relato-id UUID_DO_RELATO
+```
+
+Por padrão, a API é `http://127.0.0.1:8000`. Para outra URL, defina
+`BACKEND_API_URL` ou passe `--api-url`. O script é executado sob demanda; rode-o
+novamente para processar novos relatos. Use o mesmo `ia/.env` descrito abaixo
+para configurar `GROQ_API_KEY` e `USE_MOCK`.
 
 ## Variáveis do `.env`
 
