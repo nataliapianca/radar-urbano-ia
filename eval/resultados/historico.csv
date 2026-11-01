@@ -1,0 +1,2 @@
+﻿data;modo;rotulo;modelo;casos;acuracia_categoria;acuracia_prioridade;acuracia_ambos;f1_macro_categoria;f1_macro_prioridade;revocacao_alta;criticos;conformidade_contrato;falhas;latencia_media_s;pasta
+2026-11-01T17:58:05;groq;;openai/gpt-oss-120b;40;0.8000;0.7750;0.6000;0.7930;0.7743;0.8462;0;1.0000;0;4.705;20261101-180113_groq

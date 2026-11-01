@@ -1,0 +1,1250 @@
+{
+  "execucao": {
+    "data": "2026-11-01T17:58:05",
+    "modo": "groq",
+    "rotulo": "",
+    "modelo": "openai/gpt-oss-120b",
+    "dataset": "eval/dataset/relatos_eval.json",
+    "versao_dataset": "1.0",
+    "casos": 40
+  },
+  "metricas": {
+    "total_casos": 40,
+    "falhas_ia": 0,
+    "taxa_falha": 0.0,
+    "acuracia_categoria": 0.8,
+    "acuracia_prioridade": 0.775,
+    "acuracia_ambos": 0.6,
+    "acertos": {
+      "categoria": 32,
+      "prioridade": 31,
+      "ambos": 24
+    },
+    "f1_macro_categoria": 0.7930194805194805,
+    "f1_macro_prioridade": 0.7742857142857144,
+    "por_classe_categoria": {
+      "Infraestrutura": {
+        "precisao": 0.7777777777777778,
+        "revocacao": 1.0,
+        "f1": 0.8750000000000001,
+        "suporte": 7
+      },
+      "Iluminação": {
+        "precisao": 0.8571428571428571,
+        "revocacao": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "suporte": 7
+      },
+      "Limpeza Urbana": {
+        "precisao": 1.0,
+        "revocacao": 0.5714285714285714,
+        "f1": 0.7272727272727273,
+        "suporte": 7
+      },
+      "Trânsito": {
+        "precisao": 0.8571428571428571,
+        "revocacao": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "suporte": 7
+      },
+      "Segurança": {
+        "precisao": 0.625,
+        "revocacao": 0.8333333333333334,
+        "f1": 0.7142857142857143,
+        "suporte": 6
+      },
+      "Meio Ambiente": {
+        "precisao": 0.8,
+        "revocacao": 0.6666666666666666,
+        "f1": 0.7272727272727272,
+        "suporte": 6
+      }
+    },
+    "por_classe_prioridade": {
+      "Alta": {
+        "precisao": 0.9166666666666666,
+        "revocacao": 0.8461538461538461,
+        "f1": 0.8799999999999999,
+        "suporte": 13
+      },
+      "Média": {
+        "precisao": 0.6190476190476191,
+        "revocacao": 0.9285714285714286,
+        "f1": 0.742857142857143,
+        "suporte": 14
+      },
+      "Baixa": {
+        "precisao": 1.0,
+        "revocacao": 0.5384615384615384,
+        "f1": 0.7000000000000001,
+        "suporte": 13
+      }
+    },
+    "matriz_categoria": {
+      "Infraestrutura": {
+        "Infraestrutura": 7,
+        "Iluminação": 0,
+        "Limpeza Urbana": 0,
+        "Trânsito": 0,
+        "Segurança": 0,
+        "Meio Ambiente": 0,
+        "Falha": 0
+      },
+      "Iluminação": {
+        "Infraestrutura": 1,
+        "Iluminação": 6,
+        "Limpeza Urbana": 0,
+        "Trânsito": 0,
+        "Segurança": 0,
+        "Meio Ambiente": 0,
+        "Falha": 0
+      },
+      "Limpeza Urbana": {
+        "Infraestrutura": 0,
+        "Iluminação": 0,
+        "Limpeza Urbana": 4,
+        "Trânsito": 1,
+        "Segurança": 1,
+        "Meio Ambiente": 1,
+        "Falha": 0
+      },
+      "Trânsito": {
+        "Infraestrutura": 1,
+        "Iluminação": 0,
+        "Limpeza Urbana": 0,
+        "Trânsito": 6,
+        "Segurança": 0,
+        "Meio Ambiente": 0,
+        "Falha": 0
+      },
+      "Segurança": {
+        "Infraestrutura": 0,
+        "Iluminação": 1,
+        "Limpeza Urbana": 0,
+        "Trânsito": 0,
+        "Segurança": 5,
+        "Meio Ambiente": 0,
+        "Falha": 0
+      },
+      "Meio Ambiente": {
+        "Infraestrutura": 0,
+        "Iluminação": 0,
+        "Limpeza Urbana": 0,
+        "Trânsito": 0,
+        "Segurança": 2,
+        "Meio Ambiente": 4,
+        "Falha": 0
+      }
+    },
+    "matriz_prioridade": {
+      "Alta": {
+        "Alta": 11,
+        "Média": 2,
+        "Baixa": 0,
+        "Falha": 0
+      },
+      "Média": {
+        "Alta": 1,
+        "Média": 13,
+        "Baixa": 0,
+        "Falha": 0
+      },
+      "Baixa": {
+        "Alta": 0,
+        "Média": 6,
+        "Baixa": 7,
+        "Falha": 0
+      }
+    },
+    "erros_prioridade": {
+      "subestimadas": 2,
+      "superestimadas": 7,
+      "alta_perdida": 2,
+      "total_alta_esperada": 13,
+      "revocacao_alta": 0.8461538461538461,
+      "criticos_alta_como_baixa": 0,
+      "distancia_media": 0.225
+    },
+    "por_dificuldade": {
+      "ambígua": {
+        "casos": 13,
+        "acuracia_categoria": 0.6153846153846154,
+        "acuracia_prioridade": 0.7692307692307693
+      },
+      "clara": {
+        "casos": 27,
+        "acuracia_categoria": 0.8888888888888888,
+        "acuracia_prioridade": 0.7777777777777778
+      }
+    },
+    "conformidade_contrato": 1.0,
+    "latencia_s": {
+      "media": 4.7045,
+      "mediana": 5.463,
+      "p95": 7.488949999999997,
+      "max": 9.536
+    }
+  },
+  "casos": [
+    {
+      "id": "IL01",
+      "texto": "Fio de poste caído e soltando faísca na calçada da Rua Sete de Setembro, no Centro de Vitória, bem ao lado do ponto de ônibus. Começou hoje de manhã.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 1.103,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Alta",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Risco de choque elétrico e incêndio",
+        "informacoes_relevantes": [
+          "Fio caído soltando faísca",
+          "Rua Sete de Setembro, Centro de Vitória",
+          "próximo ao ponto de ônibus",
+          "iniciado hoje de manhã"
+        ]
+      }
+    },
+    {
+      "id": "IL02",
+      "texto": "Poste de iluminação inclinado, com a base enferrujada, ameaçando cair sobre as casas na Avenida Carlos Lindenberg, em Vila Velha. Ficou assim depois da chuva de ontem.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 0.763,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Alta",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Possível queda do poste, risco de ferimentos ou danos materiais",
+        "informacoes_relevantes": [
+          "poste inclinado",
+          "base enferrujada",
+          "local: Avenida Carlos Lindenberg, Vila Velha",
+          "após chuva"
+        ]
+      }
+    },
+    {
+      "id": "IL03",
+      "texto": "Três postes seguidos apagados na Rua Aleixo Netto, Praia do Canto, há uma semana. A rua fica totalmente escura à noite.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 0.807,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Média",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Baixa visibilidade, aumento do risco de acidentes e sensação de insegurança",
+        "informacoes_relevantes": [
+          "três postes apagados",
+          "Rua Aleixo Netto, Praia do Canto",
+          "há uma semana"
+        ]
+      }
+    },
+    {
+      "id": "IL04",
+      "texto": "A lâmpada do poste em frente ao número 45 da Rua Itaparica, em Jardim Camburi, está apagada há 5 dias.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 1.148,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Média",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Redução da visibilidade, aumentando risco de acidentes e insegurança",
+        "informacoes_relevantes": [
+          "Poste em frente ao nº 45 da Rua Itaparica",
+          "Jardim Camburi",
+          "Apagada há 5 dias"
+        ]
+      }
+    },
+    {
+      "id": "IL05",
+      "texto": "O poste da praça de Jardim da Penha fica aceso o dia inteiro, desperdiçando energia. Está assim há umas duas semanas.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 1.433,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Baixa",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Desperdício de energia elétrica sem risco imediato à segurança",
+        "informacoes_relevantes": [
+          "Poste da praça de Jardim da Penha",
+          "Fica aceso o dia inteiro",
+          "Problema há duas semanas"
+        ]
+      }
+    },
+    {
+      "id": "IL06",
+      "texto": "A luminária da quadra do bairro fica piscando de vez em quando à noite, na Rua das Palmeiras, na Serra. Começou há alguns dias, mas ainda ilumina.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 1.165,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Média",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Falha elétrica que pode deixar a via sem iluminação, aumentando risco de acidentes",
+        "informacoes_relevantes": [
+          "luminária piscando",
+          "Rua das Palmeiras",
+          "início há alguns dias",
+          "continua iluminando"
+        ]
+      }
+    },
+    {
+      "id": "IN01",
+      "texto": "Buraco de quase 1 metro de largura no meio da Avenida Fernando Ferrari, em frente à UFES, na faixa da direita. Motos já desviaram por pouco. Está assim há 3 dias.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 1.484,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Alta",
+        "setor": "Obras Viárias",
+        "risco_associado": "Risco de acidentes e danos a veículos",
+        "informacoes_relevantes": [
+          "Buraco de aproximadamente 1 metro de largura",
+          "Localizado na Avenida Fernando Ferrari, faixa da direita, em frente à UFES",
+          "Existente há 3 dias",
+          "Motos já desviaram por pouco"
+        ]
+      }
+    },
+    {
+      "id": "IN02",
+      "texto": "A tampa do bueiro sumiu na calçada da Rua Gama Rosa, no Centro de Vitória. Ficou um buraco aberto de mais de 1 metro de profundidade por onde passam as crianças da escola. Desde ontem.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 0.876,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Alta",
+        "setor": "Obras Viárias",
+        "risco_associado": "Risco de queda e ferimentos graves, especialmente para crianças",
+        "informacoes_relevantes": [
+          "tampa do bueiro ausente",
+          "buraco com mais de 1 metro de profundidade",
+          "local: Rua Gama Rosa, Centro de Vitória",
+          "passagem de crianças da escola",
+          "ocorrido desde ontem"
+        ]
+      }
+    },
+    {
+      "id": "IN03",
+      "texto": "Calçada quebrada e com desnível na Rua Chapot Presvot, Praia do Canto. Vários idosos já tropeçaram. Está assim há cerca de um mês.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 1.529,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Média",
+        "setor": "Obras Viárias",
+        "risco_associado": "Risco de quedas e lesões, especialmente em idosos",
+        "informacoes_relevantes": [
+          "Calçada quebrada e com desnível",
+          "Rua Chapot Presvot, Praia do Canto",
+          "Vários idosos já tropeçaram",
+          "Problema há cerca de um mês"
+        ]
+      }
+    },
+    {
+      "id": "IN04",
+      "texto": "O bueiro da Rua Moacir Avidos está entupido e a rua alaga toda vez que chove forte. Já faz duas semanas.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 1.43,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Média",
+        "setor": "Obras Viárias",
+        "risco_associado": "Alagamento pode causar danos materiais e risco de acidentes",
+        "informacoes_relevantes": [
+          "Bueiro entupido na Rua Moacir Avidos",
+          "Alagamento durante chuvas fortes",
+          "Problema há duas semanas"
+        ]
+      }
+    },
+    {
+      "id": "IN05",
+      "texto": "Pequenas rachaduras no asfalto da rua sem saída onde moro, Rua Ilha Rasa, Bairro de Fátima, na Serra. Não atrapalha o trânsito, mas estão aumentando há alguns meses.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 0.965,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Média",
+        "setor": "Obras Viárias",
+        "risco_associado": "Pode evoluir para buracos e danificar veículos",
+        "informacoes_relevantes": [
+          "Rachaduras pequenas no asfalto",
+          "Rua sem saída",
+          "Aumento progressivo nos últimos meses"
+        ]
+      }
+    },
+    {
+      "id": "IN06",
+      "texto": "O banco da praça de Itapuã, em Vila Velha, está com uma ripa de madeira solta. Faz umas três semanas.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 6.685,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Média",
+        "setor": "Obras Viárias",
+        "risco_associado": "Risco de queda da ripa e ferimentos aos usuários",
+        "informacoes_relevantes": [
+          "Banco da praça de Itapuã, Vila Velha",
+          "Ripa de madeira solta há três semanas"
+        ]
+      }
+    },
+    {
+      "id": "TR01",
+      "texto": "O semáforo do cruzamento da Avenida Nossa Senhora da Penha com a Rua Ferreira Coelho está completamente apagado em horário de pico e os carros estão quase batendo. Agora de manhã.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Trânsito",
+      "aceito_backend": true,
+      "latencia_s": 6.358,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Média",
+        "setor": "Trânsito",
+        "risco_associado": "Risco de colisões e acidentes graves",
+        "informacoes_relevantes": [
+          "Avenida Nossa Senhora da Penha",
+          "Rua Ferreira Coelho",
+          "semáforo apagado",
+          "horário de pico",
+          "quase batendo"
+        ]
+      }
+    },
+    {
+      "id": "TR02",
+      "texto": "Carro quebrado parado sem nenhuma sinalização logo depois da curva da Terceira Ponte, sentido Vila Velha, na faixa da esquerda. Está lá há uns 20 minutos.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Transporte",
+      "aceito_backend": true,
+      "latencia_s": 9.536,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Média",
+        "setor": "Transporte",
+        "risco_associado": "Obstrução da via pode causar acidentes",
+        "informacoes_relevantes": [
+          "Carro quebrado na faixa esquerda após a curva da Terceira Ponte",
+          "Sem sinalização",
+          "Presente há aproximadamente 20 minutos"
+        ]
+      }
+    },
+    {
+      "id": "TR03",
+      "texto": "O semáforo da Rua Desembargador Santos Neves com a Rua Joaquim Lírio fica preso no vermelho por vários minutos desde segunda-feira, formando uma fila enorme.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Trânsito",
+      "aceito_backend": true,
+      "latencia_s": 5.93,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Média",
+        "setor": "Trânsito",
+        "risco_associado": "Aumento do risco de acidentes e congestionamento",
+        "informacoes_relevantes": [
+          "Semáforo preso no vermelho",
+          "Rua Desembargador Santos Neves com a Rua Joaquim Lírio",
+          "Problema desde segunda-feira",
+          "Fila enorme de veículos"
+        ]
+      }
+    },
+    {
+      "id": "TR04",
+      "texto": "A placa de PARE do cruzamento da Rua Anísio Fernandes Coelho, em Jardim da Penha, foi derrubada e os motoristas não estão parando. Há 4 dias.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": false,
+      "setor_previsto": "Vigilância de Trânsito",
+      "aceito_backend": true,
+      "latencia_s": 5.486,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Alta",
+        "setor": "Vigilância de Trânsito",
+        "risco_associado": "Risco de colisões e acidentes pela falta de sinalização de parada",
+        "informacoes_relevantes": [
+          "Placa de PARE derrubada",
+          "Cruzamento da Rua Anísio Fernandes Coelho",
+          "Jardim da Penha",
+          "Há 4 dias"
+        ]
+      }
+    },
+    {
+      "id": "TR05",
+      "texto": "A faixa de pedestre da Rua Constante Sodré, na Praia do Canto, está bem apagada. A pintura está gasta há meses.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 8.286,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Média",
+        "setor": "Obras Viárias",
+        "risco_associado": "Reduz a visibilidade da faixa, aumentando risco de acidentes de trânsito",
+        "informacoes_relevantes": [
+          "Faixa de pedestre na Rua Constante Sodré, Praia do Canto",
+          "Pintura gasta há meses"
+        ]
+      }
+    },
+    {
+      "id": "TR06",
+      "texto": "Carros estacionam em fila dupla na porta da padaria da Rua Hugo Musso todo fim de tarde e atrapalham a passagem. Acontece há semanas.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Trânsito",
+      "aceito_backend": true,
+      "latencia_s": 7.158,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Média",
+        "setor": "Trânsito",
+        "risco_associado": "Obstrução da passagem de pedestres, risco de acidentes",
+        "informacoes_relevantes": [
+          "Rua Hugo Musso",
+          "Estacionamento em fila dupla na porta da padaria",
+          "Acontece todo fim de tarde",
+          "Problema há semanas"
+        ]
+      }
+    },
+    {
+      "id": "LI01",
+      "texto": "Lixo hospitalar com seringas e agulhas foi descartado em sacos rasgados na calçada da Rua Vitório Nunes da Motta, Enseada do Suá, perto de uma escola. Vi hoje cedo.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Vigilância Sanitária",
+      "aceito_backend": true,
+      "latencia_s": 5.415,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Alta",
+        "setor": "Vigilância Sanitária",
+        "risco_associado": "Risco de contaminação e acidentes com objetos perfurocortantes",
+        "informacoes_relevantes": [
+          "Lixo hospitalar com seringas e agulhas",
+          "Sacos rasgados na calçada",
+          "Rua Vitório Nunes da Motta, Enseada do Suá",
+          "Perto de escola"
+        ]
+      }
+    },
+    {
+      "id": "LI02",
+      "texto": "Entulho e restos de obra jogados ocupando metade da pista da Rodovia do Sol, em Vila Velha, numa curva sem iluminação. Desde ontem à noite.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 7.274,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Alta",
+        "setor": "Obras Viárias",
+        "risco_associado": "Obstrução da pista pode causar acidentes graves",
+        "informacoes_relevantes": [
+          "Entulho ocupando metade da pista",
+          "Curva sem iluminação",
+          "Desde ontem à noite"
+        ]
+      }
+    },
+    {
+      "id": "LI03",
+      "texto": "A coleta de lixo não passa há uma semana na Rua São Paulo, no bairro Itararé. Os sacos estão acumulando, com mau cheiro e ratos aparecendo.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Limpeza Urbana",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Limpeza Urbana",
+      "aceito_backend": true,
+      "latencia_s": 5.44,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Limpeza Urbana",
+        "prioridade": "Média",
+        "setor": "Limpeza Urbana",
+        "risco_associado": "Proliferação de roedores e risco de doenças",
+        "informacoes_relevantes": [
+          "Rua São Paulo, bairro Itararé",
+          "coleta de lixo ausente há uma semana",
+          "sacos acumulando",
+          "mau cheiro",
+          "presença de ratos"
+        ]
+      }
+    },
+    {
+      "id": "LI04",
+      "texto": "Tem um ponto de descarte irregular de móveis velhos e sofás no terreno da esquina da Rua Pará, em Cariacica. Está crescendo há 15 dias e já tem água parada.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Meio Ambiente",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 5.953,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Meio Ambiente",
+        "prioridade": "Média",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Água parada e lixo acumulado favorecem proliferação de mosquitos e contaminação",
+        "informacoes_relevantes": [
+          "Descarte irregular de móveis e sofás",
+          "Local: esquina da Rua Pará, Cariacica",
+          "Crescimento há 15 dias",
+          "Presença de água parada"
+        ]
+      }
+    },
+    {
+      "id": "LI05",
+      "texto": "Apareceu pichação no muro da escola municipal da Rua Lírio, no bairro República, na semana passada.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Limpeza Urbana",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Limpeza Urbana",
+      "aceito_backend": true,
+      "latencia_s": 7.447,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Limpeza Urbana",
+        "prioridade": "Baixa",
+        "setor": "Limpeza Urbana",
+        "risco_associado": "Nenhum risco imediato à segurança ou integridade física",
+        "informacoes_relevantes": [
+          "Pichação no muro da escola municipal da Rua Lírio",
+          "Bairro República",
+          "Ocorrência na semana passada"
+        ]
+      }
+    },
+    {
+      "id": "LI06",
+      "texto": "Folhas e papéis acumulados na calçada da praça em frente à igreja de Jucutuquara. A varrição não passa há uns 4 dias.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Limpeza Urbana",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Limpeza Urbana",
+      "aceito_backend": true,
+      "latencia_s": 6.642,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Limpeza Urbana",
+        "prioridade": "Baixa",
+        "setor": "Limpeza Urbana",
+        "risco_associado": "Acúmulo de resíduos pode gerar entupimento ou atrair insetos, risco imediato baixo",
+        "informacoes_relevantes": [
+          "Folhas e papéis acumulados na calçada",
+          "Praça em frente à igreja de Jucutuquara",
+          "Varrição parada há 4 dias"
+        ]
+      }
+    },
+    {
+      "id": "SE01",
+      "texto": "Um grupo está assaltando pedestres com faca toda noite na passarela da Avenida Dante Michelini, em Camburi. Aconteceu de novo ontem às 22h.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Polícia Militar",
+      "aceito_backend": true,
+      "latencia_s": 6.224,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Alta",
+        "setor": "Polícia Militar",
+        "risco_associado": "Risco de agressão física grave ou homicídio",
+        "informacoes_relevantes": [
+          "Assalto com faca",
+          "Passarela da Avenida Dante Michelini, Camburi",
+          "Ocorrência recorrente à noite, último às 22h"
+        ]
+      }
+    },
+    {
+      "id": "SE02",
+      "texto": "Alunos estão sendo abordados e ameaçados na saída da escola estadual da Rua Barão de Monjardim, no Centro, todos os dias por volta das 18h nesta semana. Uma aluna foi agredida ontem.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Polícia Militar",
+      "aceito_backend": true,
+      "latencia_s": 6.53,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Alta",
+        "setor": "Polícia Militar",
+        "risco_associado": "Risco de agressões físicas e ameaças aos estudantes",
+        "informacoes_relevantes": [
+          "Abordagem e ameaças na saída da escola estadual da Rua Barão de Monjardim",
+          "Ocorrência diária por volta das 18h",
+          "Uma aluna foi agredida ontem"
+        ]
+      }
+    },
+    {
+      "id": "SE03",
+      "texto": "O ponto de ônibus da Avenida Leitão da Silva fica sem iluminação e muito deserto à noite. Várias pessoas foram roubadas lá no último mês.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 5.154,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Média",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Falta de iluminação aumenta risco de assaltos",
+        "informacoes_relevantes": [
+          "ponto de ônibus sem iluminação",
+          "área deserta à noite",
+          "vários roubos no último mês"
+        ]
+      }
+    },
+    {
+      "id": "SE04",
+      "texto": "A câmera de monitoramento da prefeitura na Praça Costa Pereira está quebrada há duas semanas e começaram a acontecer furtos de celular no local.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Segurança Pública",
+      "aceito_backend": true,
+      "latencia_s": 4.568,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Média",
+        "setor": "Segurança Pública",
+        "risco_associado": "A ausência de monitoramento favorece a prática de furtos",
+        "informacoes_relevantes": [
+          "câmera de monitoramento quebrada há duas semanas",
+          "furtos de celular ocorrendo na Praça Costa Pereira"
+        ]
+      }
+    },
+    {
+      "id": "SE05",
+      "texto": "Pessoas consumindo bebida alcoólica e fazendo barulho na praça do bairro Santa Lúcia nas sextas à noite. Isso acontece há alguns meses.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Segurança Pública",
+      "aceito_backend": true,
+      "latencia_s": 5.702,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Baixa",
+        "setor": "Segurança Pública",
+        "risco_associado": "Perturbação da ordem pública e incômodo aos moradores",
+        "informacoes_relevantes": [
+          "Consumo de álcool",
+          "Barulho excessivo",
+          "Praça do bairro Santa Lúcia",
+          "Sextas à noite",
+          "Há alguns meses"
+        ]
+      }
+    },
+    {
+      "id": "SE06",
+      "texto": "Imóvel abandonado na Rua Graciano Neves com a porta aberta. Os moradores temem que vire ponto de invasão. Está assim há um mês.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Segurança",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": false,
+      "setor_previsto": "Segurança Pública",
+      "aceito_backend": true,
+      "latencia_s": 4.402,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Média",
+        "setor": "Segurança Pública",
+        "risco_associado": "Possibilidade de invasão e atividades criminosas",
+        "informacoes_relevantes": [
+          "Imóvel abandonado na Rua Graciano Neves",
+          "Porta aberta",
+          "Situação há um mês"
+        ]
+      }
+    },
+    {
+      "id": "MA01",
+      "texto": "Árvore grande com o tronco rachado, inclinada sobre a rede elétrica e as casas na Rua Afonso Cláudio, Praia do Suá. Balançou muito com o vento de ontem.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 6.38,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Alta",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Queda da árvore pode causar danos elétricos, incêndio e ferimentos",
+        "informacoes_relevantes": [
+          "Árvore grande com tronco rachado",
+          "Inclinada sobre rede elétrica e casas",
+          "Balançou muito com vento"
+        ]
+      }
+    },
+    {
+      "id": "MA02",
+      "texto": "Óleo está escorrendo de uma oficina direto para o córrego que passa atrás da Avenida Mário Gurgel, em Cariacica. Cheiro forte de combustível desde hoje cedo.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Meio Ambiente",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 3.235,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Meio Ambiente",
+        "prioridade": "Alta",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Contaminação da água e risco à saúde pública",
+        "informacoes_relevantes": [
+          "Óleo escorrendo de oficina",
+          "Córrego atrás da Av. Mário Gurgel",
+          "Cheiro forte de combustível"
+        ]
+      }
+    },
+    {
+      "id": "MA03",
+      "texto": "Esgoto a céu aberto sendo despejado direto no canal da Rua das Gaivotas, no bairro Ilha de Santa Maria, há duas semanas, com muito mau cheiro.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Meio Ambiente",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 7.381,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Meio Ambiente",
+        "prioridade": "Média",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Contaminação da água e risco de doenças",
+        "informacoes_relevantes": [
+          "esgoto a céu aberto",
+          "despejado no canal da Rua das Gaivotas",
+          "há duas semanas",
+          "mau cheiro"
+        ]
+      }
+    },
+    {
+      "id": "MA04",
+      "texto": "Queimada de lixo e mato no terreno baldio ao lado do condomínio na Rua Cinco, em Laranjeiras, na Serra. A fumaça entra nos apartamentos e isso acontece toda semana.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Meio Ambiente",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 3.566,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Meio Ambiente",
+        "prioridade": "Média",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Inalação de fumaça pode causar problemas respiratórios",
+        "informacoes_relevantes": [
+          "Queimada de lixo e mato",
+          "Terreno baldio ao lado do condomínio",
+          "Fumaça entra nos apartamentos",
+          "Ocorrência semanal"
+        ]
+      }
+    },
+    {
+      "id": "MA05",
+      "texto": "O canteiro central da Avenida Saturnino de Brito está com plantas mortas e grama seca, sem manutenção do paisagismo há meses.",
+      "dificuldade": "clara",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Meio Ambiente",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Meio Ambiente",
+      "aceito_backend": true,
+      "latencia_s": 5.589,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Meio Ambiente",
+        "prioridade": "Baixa",
+        "setor": "Meio Ambiente",
+        "risco_associado": "Nenhum risco imediato, apenas degradação estética e potencial aumento de pragas",
+        "informacoes_relevantes": [
+          "Plantas mortas",
+          "Grama seca",
+          "Falta de manutenção há meses",
+          "Avenida Saturnino de Brito"
+        ]
+      }
+    },
+    {
+      "id": "MA06",
+      "texto": "Um bar na Rua Joaquim Lírio coloca som muito alto até meia-noite todos os fins de semana. Está assim há um mês.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Meio Ambiente",
+      "categoria_prevista": "Segurança",
+      "acertou_categoria": false,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Fiscalização de Postos Comerciais",
+      "aceito_backend": true,
+      "latencia_s": 5.713,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Segurança",
+        "prioridade": "Baixa",
+        "setor": "Fiscalização de Postos Comerciais",
+        "risco_associado": "Incômodo sonoro que pode afetar o bem‑estar dos moradores",
+        "informacoes_relevantes": [
+          "Bar na Rua Joaquim Lírio",
+          "Som alto até meia‑noite",
+          "Fins de semana",
+          "Problema há um mês"
+        ]
+      }
+    },
+    {
+      "id": "EX01",
+      "texto": "mano tem um buracão na frente da minha casa na rua jacarandá em serra sede, os carro tão desviando pela contramão, ja faz uns 5 dia",
+      "dificuldade": "clara",
+      "categoria_esperada": "Infraestrutura",
+      "categoria_prevista": "Infraestrutura",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Alta",
+      "prioridade_prevista": "Alta",
+      "acertou_prioridade": true,
+      "setor_previsto": "Obras Viárias",
+      "aceito_backend": true,
+      "latencia_s": 7.409,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Infraestrutura",
+        "prioridade": "Alta",
+        "setor": "Obras Viárias",
+        "risco_associado": "Risco de acidentes e colisões devido ao desvio de veículos",
+        "informacoes_relevantes": [
+          "buracão na rua Jacarandá",
+          "Serra Sede",
+          "há 5 dias",
+          "carros desviando pela contramão"
+        ]
+      }
+    },
+    {
+      "id": "EX02",
+      "texto": "a luz da rua ta queimada de novo aqui no bairro maria ortiz perto do posto de saude",
+      "dificuldade": "clara",
+      "categoria_esperada": "Iluminação",
+      "categoria_prevista": "Iluminação",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Iluminação Pública",
+      "aceito_backend": true,
+      "latencia_s": 5.299,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Iluminação",
+        "prioridade": "Média",
+        "setor": "Iluminação Pública",
+        "risco_associado": "Reduz a visibilidade, aumentando risco de acidentes e crimes",
+        "informacoes_relevantes": [
+          "bairro Maria Ortiz",
+          "próximo ao posto de saúde"
+        ]
+      }
+    },
+    {
+      "id": "EX03",
+      "texto": "os cachorro rasgam os saco de lixo e espalha tudo na rua toda segunda feira, bairro goiabeiras",
+      "dificuldade": "clara",
+      "categoria_esperada": "Limpeza Urbana",
+      "categoria_prevista": "Limpeza Urbana",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Baixa",
+      "prioridade_prevista": "Baixa",
+      "acertou_prioridade": true,
+      "setor_previsto": "Limpeza Urbana",
+      "aceito_backend": true,
+      "latencia_s": 3.474,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Limpeza Urbana",
+        "prioridade": "Baixa",
+        "setor": "Limpeza Urbana",
+        "risco_associado": "Lixo espalhado pode atrair vetores e gerar sujeira nas vias",
+        "informacoes_relevantes": [
+          "cachorros rasgam sacos de lixo",
+          "lixo espalhado na rua",
+          "ocorre toda segunda-feira",
+          "bairro Goiabeiras"
+        ]
+      }
+    },
+    {
+      "id": "EX04",
+      "texto": "Sinal de trânsito virado pro lado errado na Av. Vitória perto do Forte São João, motorista não consegue ver se tá verde ou vermelho. Desde ontem.",
+      "dificuldade": "ambígua",
+      "categoria_esperada": "Trânsito",
+      "categoria_prevista": "Trânsito",
+      "acertou_categoria": true,
+      "prioridade_esperada": "Média",
+      "prioridade_prevista": "Média",
+      "acertou_prioridade": true,
+      "setor_previsto": "Trânsito",
+      "aceito_backend": true,
+      "latencia_s": 7.241,
+      "erro": null,
+      "resposta_ia": {
+        "categoria": "Trânsito",
+        "prioridade": "Média",
+        "setor": "Trânsito",
+        "risco_associado": "Risco de colisões devido à sinalização incorreta",
+        "informacoes_relevantes": [
+          "Sinal de trânsito virado para o lado errado",
+          "Local: Av. Vitória perto do Forte São João",
+          "Problema relatado desde ontem"
+        ]
+      }
+    }
+  ]
+}
