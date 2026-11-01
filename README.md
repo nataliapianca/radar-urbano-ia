@@ -39,17 +39,18 @@ O projeto segue uma arquitetura **cliente-servidor em camadas**, dividida em tr�
 | **Backend (API)** | `backend/` | Python + FastAPI + Pydantic | API REST funcional, com **armazenamento em memória** |
 | **IA** | `ia/` | Python + API Groq (modelo `openai/gpt-oss-120b`) | Script de chat em terminal, **ainda não integrado** |
 
-> ⚠️ O frontend já consome a API. A IA ainda é independente e não envia classificações para o backend.
+> ⚠️ O frontend consome a API para cadastrar e listar relatos. O cadastro localiza endereços com Geoapify; a busca exige `GEOAPIFY_API_KEY` no backend. A IA ainda é independente.
 
 ### Diagrama — estado atual
 
 ```mermaid
 flowchart LR
-    U[👤 Usuário] --> FE["Frontend React<br/>(dados de demonstração)"]
+    U[👤 Usuário] --> FE["Frontend React<br/>(cadastro e consulta)"]
     API["Backend FastAPI<br/>rotas /relatos"] --> MEM[("Repositório<br/>em memória")]
     DEV[👩‍💻 Desenvolvedor] --> IA["ia/UrbanIA<br/>chat no terminal"]
     IA --> GROQ["API Groq<br/>gpt-oss-120b"]
-    FE -. "integração pendente" .- API
+    FE -->|"cadastro, endereço e consulta"| API
+    API --> GEO["Geoapify<br/>geocodificação"]
     IA -. "integração prevista<br/>PUT /classificacao" .- API
 ```
 
@@ -79,6 +80,7 @@ sequenceDiagram
 | Arquivo | Responsabilidade |
 |---|---|
 | `app/main.py` | Cria a aplicação FastAPI, configura o CORS e define as rotas |
+| `app/geocodificacao.py` | Consulta a API Geoapify para converter endereço em coordenadas |
 | `app/repositorio.py` | Armazena os relatos em memória (dicionário protegido por `Lock`) |
 | `app/schemas/relatos.py` | Modelos `Localizacao`, `RelatoCriar`, `RelatoResposta`, `RelatosLista` e enum `StatusRelato` |
 | `app/schemas/classificacao.py` | Modelo `ClassificacaoIA` e enums `Categoria` e `Prioridade` |
@@ -90,6 +92,7 @@ sequenceDiagram
 |---|---|---|---|
 | `GET` | `/` | Verifica se a API está online | 200 |
 | `POST` | `/relatos` | Registra um relato | 201, 422 |
+| `POST` | `/localizacoes/buscar` | Busca endereço e retorna opções com coordenadas | 200, 422, 503 |
 | `GET` | `/relatos` | Lista os relatos em ordem de cadastro | 200 |
 | `GET` | `/relatos/{id}` | Busca um relato pelo UUID | 200, 404, 422 |
 | `PUT` | `/relatos/{id}/classificacao` | Registra ou substitui a classificação | 200, 404, 422 |
@@ -138,7 +141,7 @@ erDiagram
 
 | Rota | Tela | Função |
 |---|---|---|
-| `/` | Registrar relato | Formulário com descrição, local e coordenadas opcionais |
+| `/` | Registrar relato | Formulário de descrição e endereço; usuário escolhe um resultado geocodificado |
 | `/relatos` | Ocorrências | Lista com busca textual e filtros por categoria e prioridade |
 | `/relatos/:reportId` | Detalhe do relato | Dados do relato e resultado da análise |
 | `/mapa` | Mapa | Esboço ilustrativo com marcadores de exemplo |
@@ -155,7 +158,7 @@ flowchart TD
     N[Menu principal] --> A & B & C & E
 ```
 
-> Os relatos criados no frontend ficam apenas na sessão do navegador e são removidos ao recarregar a página.
+> Os relatos ficam na memória do backend e são removidos quando o servidor reinicia.
 
 ### IA (`ia/`)
 
@@ -170,7 +173,7 @@ Ainda não estão implementados o prompt de classificação, a saída estruturad
 | Tecnologia | Finalidade |
 |---|---|
 | Python, FastAPI, Pydantic, Uvicorn | API REST, validação de dados e servidor |
-| pytest, httpx | Testes automatizados da API |
+| pytest, httpx, pytest-cov | Testes automatizados, cobertura e eval da IA |
 | React, React Router, Vite, ESLint | Interface web, navegação, build e lint |
 | Groq API (SDK `openai`/`groq`) | Acesso ao modelo de linguagem |
 | Jira | Organização das Sprints |
@@ -205,6 +208,8 @@ uvicorn app.main:app --reload
 
 Por padrão, o CORS libera `http://localhost:5173` e `http://127.0.0.1:5173`. Para liberar outras origens, defina a variável `CORS_ORIGINS` com as URLs separadas por vírgula.
 
+Para buscar endereços, defina `GEOAPIFY_API_KEY` no terminal antes de iniciar a API. Mantenha a chave no backend; instruções estão em `backend/CONTRATO_API.md`.
+
 > Os dados ficam em memória e são perdidos sempre que o servidor reinicia.
 
 ### Frontend
@@ -224,10 +229,24 @@ A partir da raiz do projeto, com o ambiente virtual do backend ativo:
 
 ```bash
 pip install -r backend/requirements-dev.txt
-python -B -m pytest -q
+python -B -m pytest -q                 # suíte completa
+python tests/registrar_resultados.py   # roda e salva resumo, cobertura e JUnit em tests/resultados/
 ```
 
-Os testes não precisam de banco de dados nem de chave do Groq.
+Os testes não precisam de banco de dados nem de chave do Groq: o Groq e o
+Geoapify são simulados. Detalhes em [`tests/README.md`](tests/README.md).
+
+### Avaliação da IA (eval)
+
+Com `GROQ_API_KEY` em `ia/.env`:
+
+```bash
+python eval/rodar_eval.py --modo groq
+```
+
+Classifica 40 relatos rotulados, compara categoria e prioridade com o
+gabarito e salva o relatório com acurácia, F1, matrizes de confusão e casos
+divergentes em `eval/resultados/`. Detalhes em [`eval/README.md`](eval/README.md).
 
 ### Script de IA
 
@@ -242,9 +261,11 @@ radar-urbano-ia/
 ├── backend/          → API FastAPI (app/, schemas, contrato, requirements)
 ├── frontend/         → Interface React + Vite
 ├── ia/               → Experimentos de integração com o LLM
-├── tests/            → Testes automatizados da API
+├── tests/            → Testes automatizados (pytest) e registro dos resultados
+├── eval/             → Avaliação da IA: dataset rotulado, métricas e relatórios
 ├── docs/             → Documentação e planejamento das Sprints
-└── pytest.ini        → Configuração do pytest
+├── pytest.ini        → Configuração do pytest
+└── .coveragerc       → Configuração da cobertura de código
 ```
 
 ---
@@ -252,7 +273,7 @@ radar-urbano-ia/
 ## 🚧 Limitações da versão inicial e próximos passos
 
 - [x] Integrar o frontend com a API (cadastro e listagem de relatos).
-- [ ] Definir o ponto de referência: a API só aceita latitude/longitude (obrigatórias) e o frontend ainda não tem seletor de local.
+- [x] Buscar endereços e confirmar uma opção antes do cadastro (requer `GEOAPIFY_API_KEY`).
 - [ ] Implementar a classificação automática dos relatos via IA e o envio para `PUT /relatos/{id}/classificacao`.
 - [ ] Implementar a persistência em banco de dados (previsto: PostgreSQL + pgvector).
 - [ ] Definir autenticação e controle de acesso à rota de classificação.

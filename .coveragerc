@@ -1,0 +1,12 @@
+[run]
+source =
+    backend/app
+    ia
+    eval
+omit =
+    # Interface interativa de terminal (input/print em loop); testada manualmente
+    ia/Chat.py
+
+[report]
+show_missing = True
+skip_empty = True
