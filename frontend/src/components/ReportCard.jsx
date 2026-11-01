@@ -33,6 +33,11 @@ export default function ReportCard({ report }) {
         <Icon name="pin" size={16} />
         {formatCoordinates(report.location)}
       </p>
+      {report.location.attribution && (
+        <small className="location-attribution">
+          {report.location.attribution}
+        </small>
+      )}
       <div className="report-card-bottom">
         <time dateTime={report.createdAt}>{formatDate(report.createdAt)}</time>
         <Link className="text-link" to={'/relatos/' + report.id}>

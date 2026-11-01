@@ -4,8 +4,15 @@ from uuid import UUID
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas.classificacao import ClassificacaoIA
+from app.geocodificacao import GeocodificacaoIndisponivel, buscar_endereco
 from app.repositorio import RepositorioRelatos
-from app.schemas.relatos import RelatoCriar, RelatoResposta, RelatosLista
+from app.schemas.relatos import (
+    EnderecoBusca,
+    OpcoesLocalizacao,
+    RelatoCriar,
+    RelatoResposta,
+    RelatosLista,
+)
 
 
 def criar_app() -> FastAPI:
@@ -26,6 +33,13 @@ def criar_app() -> FastAPI:
     @app.post("/relatos", response_model=RelatoResposta, status_code=201)
     def criar_relato(dados: RelatoCriar, request: Request):
         return request.app.state.repositorio.criar(dados)
+
+    @app.post("/localizacoes/buscar", response_model=OpcoesLocalizacao)
+    def buscar_localizacao(dados: EnderecoBusca):
+        try:
+            return OpcoesLocalizacao(resultados=buscar_endereco(dados.endereco))
+        except GeocodificacaoIndisponivel as erro:
+            raise HTTPException(status_code=503, detail=str(erro)) from erro
 
     @app.get("/relatos", response_model=RelatosLista)
     def listar_relatos(request: Request):

@@ -84,7 +84,13 @@ export default function ReportDetailPage() {
               <p className="coordinates-value">
                 {formatCoordinates(report.location)}
               </p>
-              <small>Região do estudo a definir</small>
+              <small>
+                Lat. {report.location.latitude.toFixed(5)} · Long.{' '}
+                {report.location.longitude.toFixed(5)}
+              </small>
+              {report.location.attribution && (
+                <small>{report.location.attribution}</small>
+              )}
             </div>
           </div>
           <div className="detail-meta">
