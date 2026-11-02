@@ -11,6 +11,8 @@ import os
 # import do módulo; o load_dotenv não sobrescreve variáveis já definidas, então
 # um ia/.env local não interfere nos testes.
 os.environ["USE_MOCK"] = "true"
+# Os testes classificam pelo PUT; a classificação automática em segundo plano fica desligada.
+os.environ["AUTO_CLASSIFICAR"] = "false"
 os.environ.pop("GEOAPIFY_API_KEY", None)
 
 import pytest

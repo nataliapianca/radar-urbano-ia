@@ -1,8 +1,9 @@
 import os
 from uuid import UUID
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from app.classificador import classificar_em_segundo_plano
 from app.schemas.classificacao import ClassificacaoIA
 from app.geocodificacao import GeocodificacaoIndisponivel, buscar_endereco
 from app.repositorio import RepositorioRelatos
@@ -19,6 +20,7 @@ def criar_app() -> FastAPI:
     app = FastAPI(title="Radar Urbano IA", version="0.2.0",
                   description="API para registro e classificação de problemas urbanos")
     app.state.repositorio = RepositorioRelatos()
+    auto_classificar = os.getenv("AUTO_CLASSIFICAR", "true").strip().lower() == "true"
     origens = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
     app.add_middleware(
         CORSMiddleware,
@@ -31,8 +33,12 @@ def criar_app() -> FastAPI:
         return {"status": "online", "mensagem": "API do Radar Urbano IA rodando"}
 
     @app.post("/relatos", response_model=RelatoResposta, status_code=201)
-    def criar_relato(dados: RelatoCriar, request: Request):
-        return request.app.state.repositorio.criar(dados)
+    def criar_relato(dados: RelatoCriar, request: Request, tarefas: BackgroundTasks):
+        repositorio = request.app.state.repositorio
+        relato = repositorio.criar(dados)
+        if auto_classificar:
+            tarefas.add_task(classificar_em_segundo_plano, repositorio, relato.id, relato.texto)
+        return relato
 
     @app.post("/localizacoes/buscar", response_model=OpcoesLocalizacao)
     def buscar_localizacao(dados: EnderecoBusca):

@@ -30,6 +30,19 @@ export default function ReportsProvider({ children }) {
     setAttempt((current) => current + 1)
   }, [])
 
+  // Relatos recém-criados são classificados pela IA em segundo plano:
+  // consulta a lista a cada 3s até que todos tenham classificação.
+  const hasPending = reports.some((report) => !report.analysis)
+  useEffect(() => {
+    if (!hasPending) return undefined
+    const timer = setInterval(() => {
+      listReports()
+        .then((list) => setReports(list.reverse()))
+        .catch(() => {})
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [hasPending])
+
   const addReport = useCallback(async (data) => {
     const report = await createReport(data)
     setReports((current) => [report, ...current])
