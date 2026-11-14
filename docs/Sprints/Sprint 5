@@ -1,0 +1,132 @@
+# Sprint 5 — Estabilização e Entrega do MVP (C2)
+
+**Período:** 26/10/2026 a 30/10/2026
+
+**Objetivo:** Finalizar e estabilizar as funcionalidades essenciais da plataforma, executar os testes finais, organizar a documentação e preparar o vídeo de demonstração do MVP para a entrega do C2.
+
+## 1. Objetivo da Sprint
+
+Nesta Sprint, o foco será garantir a estabilidade e o funcionamento correto das funcionalidades desenvolvidas ao longo das Sprints anteriores.
+
+Serão realizadas correções de erros, revisões da interface, ajustes no comportamento da inteligência artificial e execução dos testes finais. Também serão organizadas as evidências da implementação, revisada a documentação técnica e preparado o vídeo de demonstração.
+
+A meta principal é concluir a primeira versão funcional da plataforma, garantindo que o sistema consiga receber relatos de problemas urbanos, classificá-los automaticamente, armazenar as informações e disponibilizá-las para consulta.
+
+## 2. Pacotes planejados
+
+### P35 — Correção de erros identificados na integração
+**Responsável:** Frente 1 — Backend/API
+
+- Corrigir falhas identificadas durante os testes integrados.
+- Revisar o funcionamento dos endpoints.
+- Corrigir problemas de comunicação com a inteligência artificial.
+- Garantir a consistência dos dados armazenados.
+
+### P36 — Revisão final das funcionalidades do frontend
+**Responsável:** Frente 2 — Frontend
+
+- Corrigir problemas visuais e funcionais.
+- Revisar o formulário de cadastro de relatos.
+- Revisar a listagem e os filtros de relatos.
+- Garantir a apresentação correta das classificações.
+- Melhorar a experiência de navegação.
+
+### P37 — Ajustes finais no comportamento da IA
+**Responsável:** Frente 3 — IA
+
+- Corrigir erros recorrentes de classificação.
+- Revisar as instruções do prompt.
+- Verificar a consistência das respostas em formato JSON.
+- Validar o comportamento diante de relatos incompletos ou ambíguos.
+
+### P38 — Execução da bateria final de testes
+**Responsável:** Frente 4 — Testes e Avaliação
+
+- Executar os testes unitários e integrados.
+- Validar o cadastro e a consulta de relatos.
+- Testar o processo de classificação da IA.
+- Verificar o tratamento de erros.
+- Registrar os resultados e as falhas encontradas.
+
+### P39 — Consolidação dos resultados da avaliação da IA
+**Responsável:** Frente 4 — Testes e Avaliação
+
+- Consolidar os resultados dos testes de classificação.
+- Apresentar a taxa de acerto obtida.
+- Identificar as categorias com maior ocorrência de erros.
+- Documentar limitações e oportunidades de melhoria.
+
+### P40 — Revisão final da documentação do projeto
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Revisar o README principal.
+- Atualizar as instruções de instalação e execução.
+- Revisar a documentação da arquitetura.
+- Organizar os registros técnicos das funcionalidades implementadas.
+- Garantir que a documentação corresponda à versão apresentada.
+
+### P41 — Organização das evidências e entregáveis do C2
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Organizar capturas de tela da aplicação.
+- Separar evidências dos testes realizados.
+- Registrar as principais funcionalidades implementadas.
+- Organizar os materiais necessários para a apresentação.
+- Conferir os requisitos solicitados para o C2.
+
+### P42 — Preparação do roteiro de demonstração do MVP
+**Responsável:** Frente 5 — Product Owner
+
+- Definir a sequência de apresentação do sistema.
+- Selecionar as funcionalidades que serão demonstradas.
+- Preparar exemplos de relatos para a demonstração.
+- Organizar a explicação dos resultados da IA.
+- Alinhar a participação dos integrantes no vídeo.
+
+### P43 — Gravação e entrega do vídeo de demonstração
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Gravar a demonstração do MVP funcional.
+- Apresentar o fluxo de cadastro e classificação dos relatos.
+- Demonstrar a consulta das informações.
+- Apresentar os principais resultados e funcionalidades.
+- Revisar e disponibilizar o vídeo conforme os requisitos da entrega C2.
+
+## 3. Distribuição dos pacotes por frente
+
+| Frente | Pacotes |
+|---|---|
+| Frente 1 — Backend/API | P35 |
+| Frente 2 — Frontend | P36 |
+| Frente 3 — IA | P37 |
+| Frente 4 — Testes e Avaliação | P38 e P39 |
+| Frente 5 — Product Owner | P42 |
+| Frente 6 — Integração e Documentação | P40, P41 e P43 |
+
+## 4. Critérios de conclusão
+
+Ao final da Sprint, espera-se alcançar os seguintes resultados:
+
+- [ ] Fluxo principal do MVP funcionando corretamente.
+- [ ] Problemas críticos de integração corrigidos.
+- [ ] Interface revisada e funcional.
+- [ ] Classificação da IA validada.
+- [ ] Testes finais executados e documentados.
+- [ ] Resultados da avaliação da IA consolidados.
+- [ ] README e documentação técnica atualizados.
+- [ ] Evidências da implementação organizadas.
+- [ ] Vídeo de demonstração gravado e entregue até 30/10/2026.
+
+## 5. Atuação do Product Owner
+
+Durante esta Sprint, o Product Owner será responsável por acompanhar as atividades finais, priorizar as correções necessárias e garantir que a equipe mantenha o foco nos requisitos essenciais para a entrega do C2.
+
+Também deverá revisar o backlog, validar as funcionalidades implementadas, organizar o roteiro de demonstração e acompanhar a preparação do vídeo de apresentação.
+
+## 6. Resultado esperado
+
+Ao final da Sprint 5, espera-se entregar um MVP funcional e demonstrável, capaz de receber relatos de problemas urbanos, classificá-los automaticamente por meio da inteligência artificial, armazenar os resultados e disponibilizá-los para consulta.
+
+Essa entrega representa a conclusão da primeira grande etapa do projeto (C2), estabelecendo uma base funcional para a evolução da plataforma nas próximas Sprints.
+
+As funcionalidades mais avançadas, como mapa interativo completo, dashboard analítico e integração completa com RAG, permanecerão fora do escopo obrigatório do C2 e serão consideradas para a próxima etapa de desenvolvimento.
