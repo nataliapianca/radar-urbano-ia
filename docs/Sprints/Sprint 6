@@ -1,0 +1,125 @@
+# Sprint 6 — Banco de Dados e Preparação da Evolução do Sistema
+
+**Período:** 16/11/2026 a 20/11/2026
+
+**Objetivo:** Preparar a infraestrutura e os componentes necessários para a evolução do sistema, priorizando a integração definitiva com o PostgreSQL, a definição da área geográfica de atuação, os ajustes iniciais do mapa e a preparação do ambiente de implantação.
+
+## 1. Objetivo da Sprint
+
+Após a entrega do MVP no C2, esta Sprint inicia a segunda etapa de desenvolvimento do projeto, direcionada à evolução da plataforma para a entrega final do C3.
+
+O foco será estruturar a persistência definitiva dos dados, preparar a aplicação para trabalhar com informações geográficas e organizar os próximos requisitos técnicos e funcionais.
+
+Também serão revisadas as regras de classificação da inteligência artificial e iniciada a preparação dos ambientes necessários para a publicação da aplicação.
+
+## 2. Pacotes planejados
+
+### P18 — Modelagem definitiva do banco de dados
+**Responsável:** Frente 1 — Backend/API
+
+- Revisar a estrutura atual do banco de dados.
+- Definir as entidades e os relacionamentos necessários.
+- Revisar os campos de relatos, categorias, prioridades, setores e status.
+- Identificar necessidades de armazenamento de informações geográficas.
+- Documentar a estrutura definitiva do banco.
+
+### P19 — Integração do backend com PostgreSQL
+**Responsável:** Frente 1 — Backend/API
+
+- Configurar a conexão entre a API e o PostgreSQL.
+- Adaptar os endpoints para utilização do banco definitivo.
+- Garantir a persistência dos relatos cadastrados.
+- Validar a recuperação dos registros armazenados.
+- Verificar a consistência das informações.
+
+### P20 — Configuração segura da conexão com o banco de dados
+**Responsável:** Frente 1 — Backend/API
+
+- Configurar variáveis de ambiente para os dados de conexão.
+- Evitar a exposição de credenciais no código-fonte.
+- Organizar as configurações de acesso ao banco.
+- Validar o funcionamento da conexão em diferentes ambientes.
+- Documentar as configurações necessárias para execução.
+
+### P21 — Definição do recorte geográfico e da comunidade
+**Responsável:** Frente 5 — Product Owner
+
+- Definir a região geográfica que será utilizada como referência pelo projeto.
+- Identificar os principais problemas urbanos que serão considerados.
+- Levantar informações relevantes sobre a região selecionada.
+- Identificar possíveis fontes de dados públicos.
+- Definir indicadores que poderão auxiliar na análise dos problemas urbanos.
+
+### P22 — Adequação do mapa à região definida
+**Responsável:** Frente 2 — Frontend
+
+- Adaptar a visualização do mapa à região geográfica selecionada.
+- Preparar a exibição dos relatos por localização.
+- Organizar a apresentação dos marcadores no mapa.
+- Identificar os níveis de prioridade por meio de elementos visuais.
+- Garantir a integração com os dados disponibilizados pela API.
+
+### P23 — Revisão das regras e dos tratamentos de erro da IA
+**Responsável:** Frente 3 — IA
+
+- Revisar as regras utilizadas na classificação dos relatos.
+- Identificar possíveis inconsistências nas respostas.
+- Melhorar o tratamento de relatos ambíguos ou incompletos.
+- Verificar a padronização das respostas.
+- Documentar ajustes e limitações identificadas.
+
+### P24 — Preparação do ambiente de implantação
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Identificar os serviços necessários para a publicação da aplicação.
+- Preparar as configurações iniciais do ambiente de implantação.
+- Verificar os requisitos de execução do frontend e backend.
+- Organizar as variáveis de ambiente necessárias.
+- Documentar os procedimentos iniciais de implantação.
+
+### P25 — Atualização e organização do backlog do C3
+**Responsável:** Frente 5 — Product Owner
+
+- Revisar os requisitos definidos para a entrega do C3.
+- Atualizar o backlog com as atividades necessárias.
+- Organizar as prioridades e dependências entre os pacotes.
+- Definir responsáveis e critérios de aceitação.
+- Acompanhar o andamento das frentes e identificar possíveis impedimentos.
+
+## 3. Distribuição dos pacotes por frente
+
+| Frente | Pacotes |
+|---|---|
+| Frente 1 — Backend/API | P18, P19 e P20 |
+| Frente 2 — Frontend | P22 |
+| Frente 3 — IA | P23 |
+| Frente 4 — Testes e Avaliação | Apoio à validação técnica |
+| Frente 5 — Product Owner | P21 e P25 |
+| Frente 6 — Integração e Documentação | P24 |
+
+## 4. Critérios de conclusão
+
+Ao final da Sprint, espera-se alcançar os seguintes resultados:
+
+- [ ] Modelagem definitiva do banco de dados documentada.
+- [ ] Backend integrado ao PostgreSQL.
+- [ ] Configurações de conexão protegidas por variáveis de ambiente.
+- [ ] Região geográfica e comunidade de referência definidas.
+- [ ] Mapa preparado para trabalhar com a região selecionada.
+- [ ] Regras de classificação da IA revisadas.
+- [ ] Ambiente de implantação preparado.
+- [ ] Backlog do C3 atualizado e organizado.
+
+## 5. Atuação do Product Owner
+
+Durante esta Sprint, o Product Owner será responsável por coordenar a evolução do backlog do C3, acompanhar as dependências entre as frentes e conduzir a definição da região geográfica de referência do projeto.
+
+Também deverá acompanhar a evolução da integração com o banco de dados, validar as prioridades e garantir que as atividades estejam alinhadas aos requisitos da entrega final.
+
+## 6. Resultado esperado
+
+Ao final da Sprint 6, espera-se possuir uma estrutura de banco de dados preparada para a evolução do sistema, integração do backend com PostgreSQL, definição da região de atuação e preparação inicial do mapa e do ambiente de implantação.
+
+Essa etapa estabelecerá a base técnica necessária para a integração, os testes e a publicação da aplicação nas próximas Sprints.
+
+**Observação:** O dia 20/11/2026 é feriado nacional. A disponibilidade da equipe nessa data deverá ser considerada no planejamento e na definição das entregas.
