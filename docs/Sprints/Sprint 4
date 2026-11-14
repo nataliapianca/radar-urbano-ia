@@ -1,0 +1,126 @@
+# Sprint 4 — Integração e Validação do MVP
+
+**Período:** 19/10/2026 a 23/10/2026
+
+**Objetivo:** Consolidar a integração entre frontend, backend, banco de dados e inteligência artificial, garantindo que o fluxo de cadastro, classificação e consulta dos relatos funcione corretamente.
+
+## 1. Objetivo da Sprint
+
+Nesta Sprint, o foco será integrar e validar os principais componentes da plataforma, garantindo que as funcionalidades desenvolvidas nas Sprints anteriores operem de maneira conjunta.
+
+Também serão realizados ajustes na API, no frontend e nas regras de classificação da inteligência artificial, além da execução de testes integrados para identificar possíveis falhas e inconsistências.
+
+A meta é chegar ao final desta Sprint com o fluxo principal do MVP funcional, permitindo que a Sprint 5 seja direcionada à estabilização, às correções finais e à preparação da apresentação do C2.
+
+## 2. Pacotes planejados
+
+### P26 — Integração completa do fluxo de cadastro e classificação
+**Responsável:** Frente 1 — Backend/API
+
+- Integrar o recebimento dos relatos com o serviço de classificação da IA.
+- Garantir o processamento correto das informações.
+- Integrar os resultados da classificação com a persistência no banco de dados.
+- Validar o fluxo completo de criação de um relato.
+
+### P27 — Tratamento de erros e validações da API
+**Responsável:** Frente 1 — Backend/API
+
+- Validar os dados recebidos pelos endpoints.
+- Tratar falhas na comunicação com o serviço de IA.
+- Implementar respostas padronizadas para situações de erro.
+- Evitar registros inconsistentes ou incompletos.
+
+### P28 — Integração e revisão das telas do frontend
+**Responsável:** Frente 2 — Frontend
+
+- Garantir a comunicação correta com os endpoints da API.
+- Revisar o formulário de cadastro de relatos.
+- Revisar a listagem dos relatos classificados.
+- Garantir a atualização correta das informações exibidas.
+
+### P29 — Implementação de filtros para consulta dos relatos
+**Responsável:** Frente 2 — Frontend
+
+- Permitir a filtragem de relatos por categoria.
+- Permitir a filtragem por nível de prioridade.
+- Implementar filtro por status, caso essa funcionalidade esteja disponível.
+- Apresentar os resultados de maneira organizada.
+
+### P30 — Refinamento das regras e respostas da IA
+**Responsável:** Frente 3 — IA
+
+- Revisar o prompt utilizado na classificação dos relatos.
+- Corrigir inconsistências identificadas durante os testes.
+- Melhorar o tratamento de relatos ambíguos ou incompletos.
+- Verificar se as respostas seguem o formato JSON definido pelo projeto.
+
+### P31 — Avaliação da qualidade das classificações
+**Responsável:** Frente 4 — Testes e Avaliação
+
+- Executar os casos de teste elaborados na Sprint anterior.
+- Comparar as classificações esperadas com as respostas geradas pela IA.
+- Calcular a taxa de acerto por categoria.
+- Registrar erros e oportunidades de melhoria.
+
+### P32 — Testes integrados do fluxo principal
+**Responsável:** Frente 4 — Testes e Avaliação
+
+- Testar o cadastro de um relato pela interface.
+- Verificar a classificação realizada pela IA.
+- Validar o armazenamento das informações.
+- Confirmar a recuperação e exibição dos dados.
+- Testar cenários de falha e envio de dados inválidos.
+
+### P33 — Preparação da documentação técnica e evidências
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Atualizar o README do projeto.
+- Registrar os endpoints e suas funcionalidades.
+- Documentar a arquitetura atualizada da aplicação.
+- Organizar capturas de tela e evidências dos testes.
+- Registrar as limitações conhecidas do sistema.
+
+### P34 — Revisão dos critérios de aceitação do MVP
+**Responsável:** Frente 5 — Product Owner
+
+- Revisar os requisitos definidos para a entrega do C2.
+- Verificar quais funcionalidades já estão operacionais.
+- Identificar pendências e impedimentos.
+- Priorizar as correções necessárias para a demonstração.
+- Preparar a lista de entregas e atividades para a Sprint 5.
+
+## 3. Distribuição dos pacotes por frente
+
+| Frente | Pacotes |
+|---|---|
+| Frente 1 — Backend/API | P26 e P27 |
+| Frente 2 — Frontend | P28 e P29 |
+| Frente 3 — IA | P30 |
+| Frente 4 — Testes e Avaliação | P31 e P32 |
+| Frente 5 — Product Owner | P34 |
+| Frente 6 — Integração e Documentação | P33 |
+
+## 4. Critérios de conclusão
+
+Ao final da Sprint, espera-se alcançar os seguintes resultados:
+
+- [ ] Fluxo completo de cadastro e classificação de relatos funcionando.
+- [ ] Integração entre frontend, backend, IA e banco de dados validada.
+- [ ] Tratamento dos principais erros da aplicação implementado.
+- [ ] Filtros básicos para consulta dos relatos disponíveis.
+- [ ] Classificação da IA avaliada por meio de casos de teste.
+- [ ] Testes integrados do fluxo principal executados.
+- [ ] Documentação técnica e evidências atualizadas.
+- [ ] Pendências identificadas e priorizadas para a Sprint 5.
+
+## 5. Atuação do Product Owner
+
+Durante esta Sprint, o Product Owner será responsável por acompanhar a integração entre as frentes, verificar o cumprimento dos critérios de aceitação e identificar possíveis impedimentos que possam comprometer a entrega do MVP.
+
+Também deverá revisar os requisitos do C2, validar as funcionalidades desenvolvidas e organizar as pendências que deverão ser tratadas na Sprint seguinte.
+
+## 6. Resultado esperado
+
+Ao final da Sprint 4, espera-se que a plataforma possua seu fluxo principal integrado e funcional, permitindo o cadastro de relatos, a classificação automática pela inteligência artificial, o armazenamento das informações e a consulta dos resultados pela interface.
+
+Essa etapa será fundamental para preparar o projeto para a Sprint 5, que terá como prioridade a estabilização do MVP, a realização dos testes finais, a organização das evidências e a gravação do vídeo de demonstração para a entrega do C2.
