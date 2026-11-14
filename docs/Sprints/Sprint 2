@@ -1,0 +1,73 @@
+Sprint 2 — Desenvolvimento inicial das funcionalidades
+
+Período
+
+05/10/2026 a 09/10/2026
+
+Objetivo
+
+A segunda Sprint teve como objetivo iniciar o desenvolvimento das funcionalidades principais da plataforma Radar Urbano IA, avançando da etapa de estudos e estruturação para a implementação prática do sistema.
+
+O foco foi desenvolver o cadastro e a consulta de relatos, iniciar a comunicação entre frontend e backend, preparar a integração com o serviço de inteligência artificial e estabelecer os primeiros testes das funcionalidades.
+
+Atividades planejadas
+
+Durante esta Sprint, foram definidos os seguintes pacotes de trabalho:
+
+Frente 1 — Backend/API
+
+P11 — Desenvolvimento do endpoint POST /relatos: implementar a rota responsável por receber novos relatos, incluindo texto e localização.
+
+P12 — Persistência dos relatos: implementar o armazenamento dos relatos no PostgreSQL.
+
+P13 — Desenvolvimento do endpoint GET /relatos: disponibilizar a consulta dos relatos cadastrados por meio da API.
+
+Frente 2 — Frontend
+
+P10 — Tela de cadastro de relatos: desenvolver a interface para que o cidadão possa informar um problema urbano e sua localização.
+
+P14 — Integração entre Frontend e Backend: conectar a interface à API, permitindo enviar novos relatos e consultar os registros.
+
+Frente 3 — IA / Prompt Engineering
+
+P15 — Preparação do serviço de IA: preparar a integração com o Groq para receber os relatos e retornar uma classificação estruturada, contendo categoria, prioridade e setor responsável.
+
+Frente 4 — Testes e Avaliação
+
+P16 — Testes dos endpoints: preparar e executar testes das principais rotas da API, verificando o cadastro, a consulta e a validação dos dados recebidos.
+
+Frente 5 — PO / Gestão do Projeto
+
+Organização e atualização do backlog no Jira.
+
+Acompanhamento dos pacotes e das atividades das demais frentes.
+
+Distribuição das responsabilidades entre os integrantes.
+
+Monitoramento dos prazos, impedimentos e dependências.
+
+Verificação dos critérios de aceite das entregas.
+
+Frente 6 — Integração e Documentação
+
+P17 — Documentação técnica e instruções de execução: atualizar o README com orientações para executar o projeto, configurar as variáveis de ambiente, conhecer os endpoints disponíveis e compreender a arquitetura inicial.
+
+Registrar informações relevantes sobre a integração entre os componentes.
+
+Documentar dificuldades técnicas e procedimentos necessários para executar a aplicação.
+
+Organização e acompanhamento
+
+O acompanhamento das atividades foi realizado por meio do Jira, utilizado para organizar os pacotes de trabalho, distribuir responsabilidades, acompanhar o andamento das tarefas e registrar possíveis impedimentos.
+
+A divisão das atividades entre as seis frentes permitiu organizar o desenvolvimento de forma paralela, respeitando as responsabilidades de cada equipe e as dependências entre frontend, backend, inteligência artificial e testes.
+
+Resultados e pendências
+
+Os resultados efetivamente alcançados e as atividades que permaneceram pendentes ao final da Sprint devem ser registrados nesta seção, de acordo com o andamento real de cada pacote.
+
+A conclusão dos pacotes deve considerar seus respectivos critérios de aceite, e não apenas a realização de parte das atividades previstas.
+
+Objetivo da Sprint
+
+Ao final da segunda Sprint, esperava-se avançar na construção do fluxo básico da plataforma, permitindo o cadastro e a consulta de relatos, estabelecendo a comunicação entre frontend e backend e preparando os componentes necessários para a classificação automatizada por inteligência artificial.
