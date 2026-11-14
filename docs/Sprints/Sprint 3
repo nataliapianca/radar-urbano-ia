@@ -1,0 +1,112 @@
+# Sprint 3 — Classificação Inteligente dos Relatos
+
+**Período:** 12/10/2026 a 16/10/2026  
+**Objetivo:** Implementar a classificação automática dos relatos por meio da inteligência artificial, integrando os resultados ao fluxo da aplicação e iniciando a validação da qualidade das classificações.
+
+## 1. Objetivo da Sprint
+
+Nesta Sprint, o foco será evoluir o sistema para que os relatos cadastrados sejam interpretados automaticamente pela inteligência artificial. A IA deverá identificar a categoria do problema urbano, determinar seu nível de prioridade e indicar o setor responsável pelo atendimento.
+
+Além disso, os resultados da classificação deverão ser armazenados e apresentados na interface, permitindo que os usuários visualizem as informações organizadas.
+
+## 2. Pacotes planejados
+
+### P18 — Integração da IA com o endpoint de relatos
+**Responsável:** Frente 1 — Backend/API
+
+- Integrar o serviço de inteligência artificial ao fluxo de cadastro dos relatos.
+- Enviar o conteúdo do relato para o serviço de classificação.
+- Receber e tratar a resposta retornada pela IA.
+- Implementar tratamento para falhas durante o processo de classificação.
+
+### P19 — Implementação do prompt de classificação
+**Responsável:** Frente 3 — IA
+
+- Desenvolver as instruções utilizadas pela IA para interpretar os relatos.
+- Identificar automaticamente a categoria do problema.
+- Determinar o nível de prioridade.
+- Identificar o setor responsável.
+- Padronizar as respostas em formato JSON.
+
+### P20 — Padronização das categorias e prioridades
+**Responsável:** Frente 3 — IA
+
+- Definir as categorias aceitas pelo sistema.
+- Padronizar os níveis de prioridade: alta, média e baixa.
+- Estabelecer regras para relatos ambíguos ou incompletos.
+- Garantir que as respostas da IA respeitem os valores definidos pelo projeto.
+
+### P21 — Persistência dos resultados da classificação
+**Responsável:** Frente 1 — Backend/API
+
+- Armazenar a categoria, prioridade e setor responsável no banco de dados.
+- Associar os resultados da classificação ao respectivo relato.
+- Garantir a recuperação correta das informações.
+- Tratar situações em que a IA não consiga realizar a classificação.
+
+### P22 — Exibição dos relatos classificados no frontend
+**Responsável:** Frente 2 — Frontend
+
+- Exibir os relatos cadastrados na aplicação.
+- Apresentar categoria, prioridade e setor responsável.
+- Implementar identificação visual para os diferentes níveis de prioridade.
+- Atualizar a interface conforme os dados retornados pela API.
+
+### P23 — Implementação de estados e mensagens da aplicação
+**Responsável:** Frente 2 — Frontend
+
+- Implementar mensagens de sucesso após o cadastro de relatos.
+- Exibir mensagens de erro em caso de falhas na comunicação com a API.
+- Implementar indicadores de carregamento.
+- Tratar visualmente relatos que ainda não foram classificados.
+
+### P24 — Criação de casos de teste para classificação da IA
+**Responsável:** Frente 4 — Testes e Avaliação
+
+- Criar exemplos de relatos para cada categoria definida.
+- Estabelecer classificações esperadas para os exemplos.
+- Testar diferentes níveis de prioridade.
+- Registrar divergências entre os resultados esperados e os retornados pela IA.
+
+### P25 — Documentação do fluxo de classificação inteligente
+**Responsável:** Frente 6 — Integração e Documentação
+
+- Documentar o funcionamento do processo de classificação.
+- Registrar o fluxo de comunicação entre frontend, backend, IA e banco de dados.
+- Atualizar as instruções técnicas do projeto.
+- Documentar limitações e comportamentos conhecidos da inteligência artificial.
+
+## 3. Distribuição dos pacotes por frente
+
+| Frente | Pacotes |
+|---|---|
+| Frente 1 — Backend/API | P18 e P21 |
+| Frente 2 — Frontend | P22 e P23 |
+| Frente 3 — IA | P19 e P20 |
+| Frente 4 — Testes e Avaliação | P24 |
+| Frente 5 — Product Owner | Acompanhamento e validação da Sprint |
+| Frente 6 — Integração e Documentação | P25 |
+
+## 4. Critérios de conclusão
+
+Ao final da Sprint, espera-se alcançar os seguintes resultados:
+
+- [ ] Integração entre o cadastro de relatos e o serviço de IA.
+- [ ] Classificação automática dos relatos por categoria, prioridade e setor responsável.
+- [ ] Armazenamento dos resultados da classificação.
+- [ ] Exibição das informações classificadas no frontend.
+- [ ] Implementação de mensagens de sucesso, erro e carregamento.
+- [ ] Criação e execução dos primeiros casos de teste da IA.
+- [ ] Documentação atualizada do fluxo de classificação.
+
+## 5. Atuação do Product Owner
+
+Durante a Sprint, o Product Owner será responsável por acompanhar o andamento dos pacotes, alinhar as dependências entre as frentes, validar os critérios de aceitação e monitorar possíveis impedimentos.
+
+Também será responsável por verificar se as classificações produzidas pela IA estão de acordo com as necessidades do produto e se as entregas contribuem para a evolução do MVP.
+
+## 6. Resultado esperado
+
+Ao final desta Sprint, o sistema deverá avançar de uma plataforma de cadastro de relatos para uma solução capaz de interpretar e organizar automaticamente os problemas urbanos registrados pelos usuários.
+
+Essa evolução representa uma etapa importante para a construção do MVP funcional, permitindo que as próximas Sprints se concentrem na integração completa, nos testes, na confiabilidade e na preparação da entrega.
